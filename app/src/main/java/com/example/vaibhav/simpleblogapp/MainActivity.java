@@ -15,7 +15,6 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,11 +28,11 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
 
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;//'
 
     private DatabaseReference mDatabaseUsers;
 
-    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth.AuthStateListener mAuthListener;//'
 
 
     @Override
@@ -48,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
 
-                if (firebaseAuth.getCurrentUser() == null) {
+                if (firebaseAuth.getCurrentUser() != null) {
 
                     Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -58,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
                     setupi.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(setupi);
                 }
+                /*FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d("abcd1", "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d("abcd2", "onAuthStateChanged:signed_out");
+                }*/
+
 
             }
         };
@@ -78,6 +86,13 @@ public class MainActivity extends AppCompatActivity {
         mBlogList.setHasFixedSize(true);
 
         mBlogList.setLayoutManager(layoutManager);
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     @Override
@@ -111,13 +126,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkUserExist() {
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final String user_id = user.getUid();
+
         mDatabaseUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if (!dataSnapshot.hasChild(user_id)) {
+                if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
 
                     Intent setupIntent = new Intent(MainActivity.this, SetupActivity.class);
                     setupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
