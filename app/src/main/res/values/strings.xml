@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SimpleBlogApp</string>
+    <string name="need_new_account">Need New ACCOUNT?</string>
+    <string name="e_mail_id">E-mail ID</string>
 </resources>

@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         mBlogList.setLayoutManager(layoutManager);
 
-        checkUserExist();
+        //checkUserExist();
 
 
     }
