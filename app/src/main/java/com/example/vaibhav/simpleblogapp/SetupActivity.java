@@ -1,8 +1,10 @@
 package com.example.vaibhav.simpleblogapp;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -10,8 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -19,6 +23,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
+
+import java.io.File;
 
 public class SetupActivity extends AppCompatActivity {
 
@@ -30,6 +36,11 @@ public class SetupActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private StorageReference mStorageRef;
     private static final int GALLARY_REQUEST = 1;
+   // private ProgressDialog mProgress;
+
+    public SetupActivity() {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +48,14 @@ public class SetupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setup);
 
         mAuth = FirebaseAuth.getInstance();
-        mDatabseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mStorageRef = FirebaseStorage.getInstance().getReference().child("ProfileImages");
+
+        mDatabseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
+
 
         mSetupImage = (ImageButton) findViewById(R.id.setupImagebtn);
         mNameField = (EditText) findViewById(R.id.setupName);
         mFinishBtn = (Button) findViewById(R.id.finishbtn);
-
 
 
         mSetupImage.setOnClickListener(new View.OnClickListener() {
@@ -70,27 +82,44 @@ public class SetupActivity extends AppCompatActivity {
 
     private void startSetupAccount() {
         final String name = mNameField.getText().toString().trim();
-        final String user_id = mAuth.getCurrentUser().getUid();
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        final String user_id = user.getUid();
 
 
         if (!TextUtils.isEmpty(name) && mImageUri != null) {
 
+
+            //Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
+           // mProgress.show();
+
             StorageReference filepath = mStorageRef.child(mImageUri.getLastPathSegment());
 
-            filepath.putFile(mImageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+            filepath.putFile(mImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                    String downloadUri = taskSnapshot.getDownloadUrl().toString();
+                            Uri downloadUri = taskSnapshot.getDownloadUrl();
 
-                    mDatabseUsers.child(user_id).child("name").setValue(name);
-                    mDatabseUsers.child(user_id).child("image").setValue(downloadUri);
+                            mDatabseUsers.child(user_id).child("name").setValue(name);
+                            mDatabseUsers.child(user_id).child("image").setValue(downloadUri);
+                            Intent mainIntent = new Intent(SetupActivity.this, MainActivity.class);
+                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(mainIntent);
 
-                }
-            });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            // Handle unsuccessful uploads
+                            // ...
+                        }
+                    });
+           // mProgress.dismiss();
 
-            /*
-           */
 
         }
 

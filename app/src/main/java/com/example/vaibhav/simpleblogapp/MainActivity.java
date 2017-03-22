@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,32 +42,23 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
+
         mAuthListener = new FirebaseAuth.AuthStateListener() {
 
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
 
-                if (firebaseAuth.getCurrentUser() != null) {
+                if (firebaseAuth.getInstance().getCurrentUser() == null) {
 
                     Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(loginIntent);
                 } else {
-                    Intent setupi = new Intent(MainActivity.this, SetupActivity.class);
+                    Intent setupi = new Intent(MainActivity.this, PostActivity.class);
                     setupi.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(setupi);
                 }
-                /*FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user != null) {
-                    // User is signed in
-                    Log.d("abcd1", "onAuthStateChanged:signed_in:" + user.getUid());
-                } else {
-                    // User is signed out
-                    Log.d("abcd2", "onAuthStateChanged:signed_out");
-                }*/
-
-
             }
         };
 
@@ -86,12 +78,19 @@ public class MainActivity extends AppCompatActivity {
         mBlogList.setHasFixedSize(true);
 
         mBlogList.setLayoutManager(layoutManager);
+
+        checkUserExist();
+
+
     }
+
     @Override
     public void onStop() {
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
+
+
         }
     }
 
@@ -101,16 +100,11 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth.addAuthStateListener(mAuthListener);//important thing!!!for sign out!!!
 
-        checkUserExist();
-
-
         FirebaseRecyclerAdapter<Blog, BloViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Blog, BloViewHolder>(
                 Blog.class,
                 R.layout.blog_row,
                 BloViewHolder.class,
-                mDatabase
-
-        ) {
+                mDatabase) {
             @Override
             protected void populateViewHolder(BloViewHolder viewHolder, Blog model, int position) {
 
@@ -126,26 +120,31 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkUserExist() {
 
+//        final String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-        mDatabaseUsers.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+        if (user != null) {
+            final String user_id = user.getUid();
+            mDatabaseUsers.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    Intent setupIntent = new Intent(MainActivity.this, SetupActivity.class);
-                    setupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(setupIntent);
+                    if (dataSnapshot.hasChild(user_id)) {
+                        Intent setupIntent = new Intent(MainActivity.this, SetupActivity.class);
+                        setupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(setupIntent);
+                    }
 
                 }
 
-            }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        }
 
-            }
-        });
 
     }
 

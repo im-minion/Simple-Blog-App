@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         mNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(LoginActivity.this,RegisterActivity.class));
             }
         });
 
@@ -72,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
         String email = mLoginEmailField.getText().toString().trim();
         String password = mLoginPasswordField.getText().toString().trim();
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
+            Toast.makeText(getApplicationContext(), "uname:" + email + " passwd:" + password, Toast.LENGTH_LONG).show();
 
             mProgressbar.setMessage("Checking LOGIN.....");
             mProgressbar.show();
