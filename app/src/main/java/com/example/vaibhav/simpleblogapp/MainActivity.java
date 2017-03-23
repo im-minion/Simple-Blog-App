@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabaseUsers.keepSynced(true);
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         mBlogList.setLayoutManager(layoutManager);
 
-        //checkUserExist();
+        checkUserExist();
 
 
     }
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    if (dataSnapshot.hasChild(user_id)) {
+                    if (!dataSnapshot.hasChild(user_id)) {
                         Intent setupIntent = new Intent(MainActivity.this, SetupActivity.class);
                         setupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(setupIntent);
