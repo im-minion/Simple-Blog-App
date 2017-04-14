@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -81,17 +82,13 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-
                         mProgressbar.dismiss();
-
                         checkUserExist();
 
                     } else {
-
                         mProgressbar.dismiss();
-
                         Toast.makeText(LoginActivity.this, "TASK FAILED", Toast.LENGTH_LONG).show();
-
+                        Log.w("LoginThing---", "signInWithEmail:failed", task.getException());
                     }
                 }
             });

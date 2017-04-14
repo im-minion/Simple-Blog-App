@@ -49,10 +49,7 @@ public class SetupActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mStorageRef = FirebaseStorage.getInstance().getReference().child("ProfileImages");
-
         mDatabseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
-
-
         mSetupImage = (ImageButton) findViewById(R.id.setupImagebtn);
         mNameField = (EditText) findViewById(R.id.setupName);
         mFinishBtn = (Button) findViewById(R.id.finishbtn);

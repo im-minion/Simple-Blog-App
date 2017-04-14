@@ -7,11 +7,13 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
@@ -111,6 +113,13 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.setDesc(model.getDESCRIPTION());
                 viewHolder.setImage(getApplicationContext(), model.getIMAGE());
 
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "You just cliked on blog", Toast.LENGTH_LONG).show();
+                    }
+                });
+
             }
         };
         mBlogList.setAdapter(firebaseRecyclerAdapter);
@@ -133,6 +142,8 @@ public class MainActivity extends AppCompatActivity {
                         Intent setupIntent = new Intent(MainActivity.this, SetupActivity.class);
                         setupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(setupIntent);
+                    } else {
+                        onStart();
                     }
 
                 }
@@ -151,15 +162,23 @@ public class MainActivity extends AppCompatActivity {
     public static class BloViewHolder extends RecyclerView.ViewHolder {
 
         View mView;
+        TextView post_title;
 
         public BloViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
+            post_title = (TextView) mView.findViewById(R.id.post_title);
+            post_title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.d("MAinactivity", "someText");
+                }
+            });
         }
 
         public void setTitle(String title) {
 
-            TextView post_title = (TextView) mView.findViewById(R.id.post_title);
+            //TextView post_title = (TextView) mView.findViewById(R.id.post_title);
             post_title.setText(title);
         }
 
