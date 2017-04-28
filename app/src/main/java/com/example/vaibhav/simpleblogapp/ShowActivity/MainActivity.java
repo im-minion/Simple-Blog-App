@@ -206,13 +206,25 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.action_add) {
+//        if (item.getItemId() == R.id.action_add) {
+//
+//            startActivity(new Intent(MainActivity.this, PostActivity.class));
+//        }
+//        if (item.getItemId() == R.id.action_logout) {
+//            logout();
+//        }
+        switch (item.getItemId()) {
+            case R.id.action_add:
+                startActivity(new Intent(MainActivity.this, PostActivity.class));
+                break;
+            case R.id.action_logout:
+                logout();
+                break;
+            case R.id.action_settings:
+                startActivity(new Intent(MainActivity.this, SetupActivity.class));
+                break;
+        }
 
-            startActivity(new Intent(MainActivity.this, PostActivity.class));
-        }
-        if (item.getItemId() == R.id.action_logout) {
-            logout();
-        }
 
         return super.onOptionsItemSelected(item);
     }

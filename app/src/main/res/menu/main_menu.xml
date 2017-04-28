@@ -5,15 +5,15 @@
     <item
         android:id="@+id/action_add"
         android:icon="@mipmap/ic_add_white_24dp"
-        android:title="AddPOST"
+        android:title="Add Post"
         app:showAsAction="always" />
     <item
         android:id="@+id/action_settings"
-        android:title="Settings"
+        android:title="Set Up"
         app:showAsAction="never" />
     <item
         android:id="@+id/action_logout"
-        android:title="LOG OUT"
+        android:title="Log Out"
         app:showAsAction="never" />
 
 </menu>

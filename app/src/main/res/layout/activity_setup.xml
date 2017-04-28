@@ -13,7 +13,6 @@
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:scaleType="centerCrop"
-
         android:src="@mipmap/ic_person_black_24dp" />
 
     <EditText
@@ -23,6 +22,7 @@
         android:layout_below="@+id/setupImagebtn"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
+        android:background="@drawable/input_outline"
         android:hint="Enter your Dispaly Name"
         android:padding="20dp" />
 
@@ -32,6 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="0dp"
+        android:background="@color/colorPrimary"
         android:padding="0dp"
-        android:text="Finish Setup" />
+        android:text="Finish Setup"
+        android:textColor="@android:color/white" />
 </RelativeLayout>

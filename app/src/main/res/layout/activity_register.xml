@@ -16,7 +16,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
-        android:hint="NAME"
+        android:background="@drawable/input_outline"
+        android:hint="@string/name"
         android:padding="10dp" />
 
     <EditText
@@ -26,6 +27,7 @@
         android:layout_below="@+id/name"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
+        android:background="@drawable/input_outline"
         android:ems="10"
         android:hint="E-mail"
         android:inputType="textEmailAddress"
@@ -38,6 +40,7 @@
         android:layout_below="@+id/email"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
+        android:background="@drawable/input_outline"
         android:ems="10"
         android:hint="Password"
         android:inputType="textPassword"
@@ -49,9 +52,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/password"
         android:layout_margin="20dp"
+        android:background="@color/colorPrimary"
         android:hint="REGISTER"
         android:padding="10dp"
-        android:text="Sign Up" />
+        android:text="Sign Up"
+        android:textColor="@android:color/white" />
 
 
 </RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.vaibhav.simpleblogapp.ShowActivity;
 
 import android.content.Intent;
+//import android.net.Uri;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -77,12 +78,8 @@ public class SetupActivity extends AppCompatActivity {
 
     private void startSetupAccount() {
         final String name = mNameField.getText().toString().trim();
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
         final String user_id = user.getUid();
-
-
         if (!TextUtils.isEmpty(name) && mImageUri != null) {
 
 
@@ -95,15 +92,12 @@ public class SetupActivity extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
                             Uri downloadUri = taskSnapshot.getDownloadUrl();
-
                             mDatabseUsers.child(user_id).child("name").setValue(name);
-                            mDatabseUsers.child(user_id).child("image").setValue(downloadUri);
+                            mDatabseUsers.child(user_id).child("image").setValue(downloadUri.toString());
                             Intent mainIntent = new Intent(SetupActivity.this, MainActivity.class);
                             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(mainIntent);
-
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
