@@ -37,9 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         mAuth = FirebaseAuth.getInstance();
-
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-
         mNameField = (EditText) findViewById(R.id.name);
         mEmailField = (EditText) findViewById(R.id.email);
         mPasswordField = (EditText) findViewById(R.id.password);
@@ -51,8 +49,6 @@ public class RegisterActivity extends AppCompatActivity {
                 startRegister();
             }
         });
-
-
     }
 
     private void startRegister() {

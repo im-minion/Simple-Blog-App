@@ -38,7 +38,6 @@ public class SetupActivity extends AppCompatActivity {
     // private ProgressDialog mProgress;
 
     public SetupActivity() {
-
     }
 
     @Override
@@ -52,8 +51,6 @@ public class SetupActivity extends AppCompatActivity {
         mSetupImage = (ImageButton) findViewById(R.id.setupImagebtn);
         mNameField = (EditText) findViewById(R.id.setupName);
         mFinishBtn = (Button) findViewById(R.id.finishbtn);
-
-
         mSetupImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,8 +60,6 @@ public class SetupActivity extends AppCompatActivity {
                 startActivityForResult(galleryIntent, GALLARY_REQUEST);
             }
         });
-
-
         mFinishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,7 +68,6 @@ public class SetupActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void startSetupAccount() {
@@ -81,11 +75,8 @@ public class SetupActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String user_id = user.getUid();
         if (!TextUtils.isEmpty(name) && mImageUri != null) {
-
-
             //Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
             // mProgress.show();
-
             StorageReference filepath = mStorageRef.child(mImageUri.getLastPathSegment());
 
             filepath.putFile(mImageUri)
@@ -108,7 +99,6 @@ public class SetupActivity extends AppCompatActivity {
                         }
                     });
             // mProgress.dismiss();
-
         }
 
     }
@@ -118,10 +108,7 @@ public class SetupActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == GALLARY_REQUEST && resultCode == RESULT_OK) {
-
-
             Uri imageUri = data.getData();
-
             CropImage.activity(imageUri)
                     .setGuidelines(CropImageView.Guidelines.ON)
                     .setAspectRatio(1, 1)

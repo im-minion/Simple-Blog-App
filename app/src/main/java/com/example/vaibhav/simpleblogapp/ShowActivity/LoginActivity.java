@@ -25,14 +25,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
-
     private EditText mLoginEmailField;
     private EditText mLoginPasswordField;
     private Button mLoginButton;
     private Button mNewAccount;
-
     private ProgressDialog mProgressbar;
-
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseUsers;
     private FirebaseAuth.AuthStateListener mAuthListenere;
@@ -43,7 +40,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mAuth = FirebaseAuth.getInstance();
-
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabaseUsers.keepSynced(true);
         mProgressbar = new ProgressDialog(this);
@@ -51,7 +47,6 @@ public class LoginActivity extends AppCompatActivity {
         mLoginPasswordField = (EditText) findViewById(R.id.loginpasswordfield);
         mLoginButton = (Button) findViewById(R.id.loginbtn);
         mNewAccount = (Button) findViewById(R.id.newaccount);
-
         mNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,9 +85,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                 }
             });
-
         }
-
     }
 
     private void checkUserExist() {
@@ -115,7 +108,6 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(setupIntent);
 
                 }
-
             }
 
             @Override
@@ -123,8 +115,5 @@ public class LoginActivity extends AppCompatActivity {
 
             }
         });
-
     }
-
-
 }

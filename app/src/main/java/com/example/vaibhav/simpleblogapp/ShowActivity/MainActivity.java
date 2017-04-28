@@ -64,22 +64,16 @@ public class MainActivity extends AppCompatActivity {
 //                }
             }
         };
-
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabaseUsers.keepSynced(true);
         mDatabase.keepSynced(true);
-
         mBlogList = (RecyclerView) findViewById(R.id.blog_list);
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
-
         mBlogList.setHasFixedSize(true);
-
         mBlogList.setLayoutManager(layoutManager);
-
         checkUserExist();
     }
 
@@ -94,9 +88,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         mAuth.addAuthStateListener(mAuthListener);//important thing!!!for sign out!!!
-
         FirebaseRecyclerAdapter<Blog, BloViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Blog, BloViewHolder>(
                 Blog.class,
                 R.layout.blog_row,
@@ -114,25 +106,20 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "You just cliked on blog", Toast.LENGTH_LONG).show();
                     }
                 });
-
             }
         };
         mBlogList.setAdapter(firebaseRecyclerAdapter);
-
     }
 
     private void checkUserExist() {
 
 //        final String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
         if (user != null) {
             final String user_id = user.getUid();
             mDatabaseUsers.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-
                     if (!dataSnapshot.hasChild(user_id)) {
                         Intent setupIntent = new Intent(MainActivity.this, SetupActivity.class);
                         setupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -140,22 +127,17 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         onStart();
                     }
-
                 }
 
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
-
                 }
             });
         }
-
-
     }
 
 
     public static class BloViewHolder extends RecyclerView.ViewHolder {
-
         View mView;
         TextView post_title;
 
@@ -187,20 +169,13 @@ public class MainActivity extends AppCompatActivity {
 
             ImageView post_image = (ImageView) mView.findViewById(R.id.post_image);
             Picasso.with(ctx).load(IMAGE).into(post_image);
-
         }
-
     }
 
-
     @Override
-
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.main_menu, menu);
-
         return super.onCreateOptionsMenu(menu);
-
     }
 
     @Override

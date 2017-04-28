@@ -90,13 +90,10 @@ public class PostActivity extends AppCompatActivity {
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                     Uri downloadUrl = taskSnapshot.getDownloadUrl();
-
-
                     DatabaseReference newPost = mDatabase.push();//cret uniquid
                     newPost.child("Title").setValue(title_val);
                     newPost.child("DESCRIPTION").setValue(desc_val);
                     newPost.child("IMAGE").setValue(downloadUrl.toString());
-
                     mprogressbar.dismiss();
                     Toast.makeText(PostActivity.this, "Posted Successfully!!!!!",
                             Toast.LENGTH_SHORT).show();
