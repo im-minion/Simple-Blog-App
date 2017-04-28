@@ -1,4 +1,4 @@
-package com.example.vaibhav.simpleblogapp;
+package com.example.vaibhav.simpleblogapp.ShowActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.vaibhav.simpleblogapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -70,18 +71,19 @@ public class RegisterActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
 
                         String user_id = mAuth.getCurrentUser().getUid();
-
                         DatabaseReference current_user_db = mDatabase.child(user_id);
 
                         current_user_db.child("name").setValue(name);
                         current_user_db.child("image").setValue("default");
+
                         mProgress.dismiss();
-                        Intent mainIntent = new Intent(RegisterActivity.this,MainActivity.class);
+
+                        Intent mainIntent = new Intent(RegisterActivity.this, MainActivity.class);
                         mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(mainIntent);
-                    }
-                    else {
-                        Toast.makeText(RegisterActivity.this,"Failed",Toast.LENGTH_LONG).show();
+
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "Failed", Toast.LENGTH_LONG).show();
                     }
 
                 }

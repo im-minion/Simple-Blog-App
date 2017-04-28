@@ -1,6 +1,5 @@
-package com.example.vaibhav.simpleblogapp;
+package com.example.vaibhav.simpleblogapp.ShowActivity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
+import com.example.vaibhav.simpleblogapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -24,8 +24,6 @@ import com.google.firebase.storage.UploadTask;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.io.File;
-
 public class SetupActivity extends AppCompatActivity {
 
     private ImageButton mSetupImage;
@@ -36,7 +34,7 @@ public class SetupActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private StorageReference mStorageRef;
     private static final int GALLARY_REQUEST = 1;
-   // private ProgressDialog mProgress;
+    // private ProgressDialog mProgress;
 
     public SetupActivity() {
 
@@ -89,7 +87,7 @@ public class SetupActivity extends AppCompatActivity {
 
 
             //Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
-           // mProgress.show();
+            // mProgress.show();
 
             StorageReference filepath = mStorageRef.child(mImageUri.getLastPathSegment());
 
@@ -115,8 +113,7 @@ public class SetupActivity extends AppCompatActivity {
                             // ...
                         }
                     });
-           // mProgress.dismiss();
-
+            // mProgress.dismiss();
 
         }
 

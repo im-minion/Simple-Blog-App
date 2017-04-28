@@ -1,4 +1,4 @@
-package com.example.vaibhav.simpleblogapp;
+package com.example.vaibhav.simpleblogapp.Classes;
 
 import android.app.Application;
 
@@ -17,10 +17,8 @@ public class SimpleBlog extends Application {
         super.onCreate();
 
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);//offlinecapability
-
-
         Picasso.Builder builder = new Picasso.Builder(this);
-        builder.downloader(new OkHttpDownloader(this,Integer.MAX_VALUE));
+        builder.downloader(new OkHttpDownloader(this, Integer.MAX_VALUE));
         Picasso built = builder.build();
         built.setIndicatorsEnabled(false);
         built.setLoggingEnabled(true);

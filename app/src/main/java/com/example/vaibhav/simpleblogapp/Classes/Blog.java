@@ -1,4 +1,4 @@
-package com.example.vaibhav.simpleblogapp;
+package com.example.vaibhav.simpleblogapp.Classes;
 
 /**
  * Created by vaibhav on 7/1/17.
@@ -9,7 +9,8 @@ public class Blog {
     private String Title;
     private String DESCRIPTION;
     private String IMAGE;
-    public Blog(){
+
+    public Blog() {
 
     }
 
@@ -36,7 +37,6 @@ public class Blog {
     public void setIMAGE(String IMAGE) {
         this.IMAGE = IMAGE;
     }
-
 
 
 }

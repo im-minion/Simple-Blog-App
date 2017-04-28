@@ -1,4 +1,4 @@
-package com.example.vaibhav.simpleblogapp;
+package com.example.vaibhav.simpleblogapp.ShowActivity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.vaibhav.simpleblogapp.Classes.Blog;
+import com.example.vaibhav.simpleblogapp.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,11 +33,11 @@ public class MainActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase;
 
-    private FirebaseAuth mAuth;//'
+    private FirebaseAuth mAuth;
 
     private DatabaseReference mDatabaseUsers;
 
-    private FirebaseAuth.AuthStateListener mAuthListener;//'
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
 
     @Override
@@ -49,18 +51,17 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-
-
                 if (firebaseAuth.getInstance().getCurrentUser() == null) {
 
                     Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(loginIntent);
-                } else {
-                    Intent setupi = new Intent(MainActivity.this, PostActivity.class);
-                    setupi.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(setupi);
                 }
+//              else {
+//                    Intent setupi = new Intent(MainActivity.this, SetupActivity.class);
+//                    setupi.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//                    startActivity(setupi);
+//                }
             }
         };
 
@@ -68,7 +69,6 @@ public class MainActivity extends AppCompatActivity {
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabaseUsers.keepSynced(true);
         mDatabase.keepSynced(true);
-
 
         mBlogList = (RecyclerView) findViewById(R.id.blog_list);
 
@@ -81,8 +81,6 @@ public class MainActivity extends AppCompatActivity {
         mBlogList.setLayoutManager(layoutManager);
 
         checkUserExist();
-
-
     }
 
     @Override
@@ -90,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
-
-
         }
     }
 
@@ -112,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDESCRIPTION());
                 viewHolder.setImage(getApplicationContext(), model.getIMAGE());
-
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
