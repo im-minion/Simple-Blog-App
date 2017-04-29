@@ -82,6 +82,7 @@ public class SetupActivity extends AppCompatActivity {
         mSetupImage = (ImageButton) findViewById(R.id.setupImagebtn);
         mNameField = (EditText) findViewById(R.id.setupName);
         mFinishBtn = (Button) findViewById(R.id.finishbtn);
+        mProgress = new ProgressDialog(this);
     }
 
     private void onClickMethods() {
@@ -98,7 +99,6 @@ public class SetupActivity extends AppCompatActivity {
         mFinishBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startSetupAccount();
             }
         });
@@ -108,6 +108,7 @@ public class SetupActivity extends AppCompatActivity {
         final String name = mNameField.getText().toString().trim();
         final String user_id = mAuth.getCurrentUser().getUid();
         if (!TextUtils.isEmpty(name) && mImageUri != null) {
+            mProgress.setMessage("Saving Profile.....");
             mProgress.show();
             StorageReference filepath = mStorageRef.child(mImageUri.getLastPathSegment());
 
@@ -121,6 +122,7 @@ public class SetupActivity extends AppCompatActivity {
                             Intent mainIntent = new Intent(SetupActivity.this, MainActivity.class);
                             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             mProgress.dismiss();
+                            Toast.makeText(SetupActivity.this, "Profile Saved Successfully :)", Toast.LENGTH_LONG).show();
                             startActivity(mainIntent);
                         }
                     })
@@ -131,7 +133,7 @@ public class SetupActivity extends AppCompatActivity {
                             mProgress.dismiss();
                         }
                     });
-            mProgress.dismiss();
+
         }
     }
 
