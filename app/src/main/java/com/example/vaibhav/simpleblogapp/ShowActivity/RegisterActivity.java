@@ -36,6 +36,17 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
+        init();
+
+        mRegBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startRegister();
+            }
+        });
+    }
+
+    private void init() {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
         mNameField = (EditText) findViewById(R.id.name);
@@ -43,12 +54,6 @@ public class RegisterActivity extends AppCompatActivity {
         mPasswordField = (EditText) findViewById(R.id.password);
         mProgress = new ProgressDialog(this);
         mRegBtn = (Button) findViewById(R.id.btn);
-        mRegBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startRegister();
-            }
-        });
     }
 
     private void startRegister() {

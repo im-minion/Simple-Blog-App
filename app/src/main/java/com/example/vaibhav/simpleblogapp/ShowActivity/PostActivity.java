@@ -39,20 +39,23 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post);
 
+        bindViews();
+
+        clickEvents();
+
+    }
+
+    private void bindViews() {
         mprogressbar = new ProgressDialog(this);
-
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
-
         mStorageRef = FirebaseStorage.getInstance().getReference();
-
         mPostTitle = (EditText) findViewById(R.id.editText1);
-
         mPostDesc = (EditText) findViewById(R.id.editText2);
-
         mSubmitBtn = (Button) findViewById(R.id.btn);
-
         mSelectImage = (ImageButton) findViewById(R.id.imageButton2);
+    }
 
+    private void clickEvents() {
         mSelectImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,7 +69,6 @@ public class PostActivity extends AppCompatActivity {
         mSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startPosting();
             }
         });
@@ -109,7 +111,6 @@ public class PostActivity extends AppCompatActivity {
                 }
             });
         }
-
     }
 
     @Override

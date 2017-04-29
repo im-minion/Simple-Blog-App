@@ -28,52 +28,21 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
-
     private RecyclerView mBlogList;
-
     private DatabaseReference mDatabase;
-
     private FirebaseAuth mAuth;
-
     private DatabaseReference mDatabaseUsers;
-
     private FirebaseAuth.AuthStateListener mAuthListener;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mAuth = FirebaseAuth.getInstance();
+        firebaseInit();
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
+        blogList();
 
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getInstance().getCurrentUser() == null) {
-
-                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(loginIntent);
-                }
-//              else {
-//                    Intent setupi = new Intent(MainActivity.this, SetupActivity.class);
-//                    setupi.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                    startActivity(setupi);
-//                }
-            }
-        };
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
-        mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
-        mDatabaseUsers.keepSynced(true);
-        mDatabase.keepSynced(true);
-        mBlogList = (RecyclerView) findViewById(R.id.blog_list);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
-        mBlogList.setHasFixedSize(true);
-        mBlogList.setLayoutManager(layoutManager);
         checkUserExist();
     }
 
@@ -96,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 mDatabase) {
             @Override
             protected void populateViewHolder(BloViewHolder viewHolder, Blog model, int position) {
-
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDESCRIPTION());
                 viewHolder.setImage(getApplicationContext(), model.getIMAGE());
@@ -111,9 +79,36 @@ public class MainActivity extends AppCompatActivity {
         mBlogList.setAdapter(firebaseRecyclerAdapter);
     }
 
+    private void firebaseInit() {
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (firebaseAuth.getInstance().getCurrentUser() == null) {
+                    Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+                    loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(loginIntent);
+                }//if there is no curreent user then only move to liginActivity
+            }
+        };
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
+        mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDatabaseUsers.keepSynced(true);
+        mDatabase.keepSynced(true);
+    }
+
+    private void blogList() {
+        mBlogList = (RecyclerView) findViewById(R.id.blog_list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setReverseLayout(true);
+        layoutManager.setStackFromEnd(true);
+        mBlogList.setHasFixedSize(true);
+        mBlogList.setLayoutManager(layoutManager);
+    }
+
     private void checkUserExist() {
 
-//        final String user_id = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             final String user_id = user.getUid();
@@ -154,8 +149,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void setTitle(String title) {
-
-            //TextView post_title = (TextView) mView.findViewById(R.id.post_title);
             post_title.setText(title);
         }
 
@@ -173,6 +166,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
@@ -181,13 +179,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-//        if (item.getItemId() == R.id.action_add) {
-//
-//            startActivity(new Intent(MainActivity.this, PostActivity.class));
-//        }
-//        if (item.getItemId() == R.id.action_logout) {
-//            logout();
-//        }
         switch (item.getItemId()) {
             case R.id.action_add:
                 startActivity(new Intent(MainActivity.this, PostActivity.class));
@@ -199,18 +190,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, SetupActivity.class));
                 break;
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
 
     private void logout() {
-
         mAuth.signOut();
     }
 }

@@ -39,14 +39,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mAuth = FirebaseAuth.getInstance();
-        mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
-        mDatabaseUsers.keepSynced(true);
-        mProgressbar = new ProgressDialog(this);
-        mLoginEmailField = (EditText) findViewById(R.id.loginemailfield);
-        mLoginPasswordField = (EditText) findViewById(R.id.loginpasswordfield);
-        mLoginButton = (Button) findViewById(R.id.loginbtn);
-        mNewAccount = (Button) findViewById(R.id.newaccount);
+        bindViews();
+
         mNewAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +53,17 @@ public class LoginActivity extends AppCompatActivity {
                 checkLogin();
             }
         });
+    }
+
+    private void bindViews() {
+        mAuth = FirebaseAuth.getInstance();
+        mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDatabaseUsers.keepSynced(true);
+        mProgressbar = new ProgressDialog(this);
+        mLoginEmailField = (EditText) findViewById(R.id.loginemailfield);
+        mLoginPasswordField = (EditText) findViewById(R.id.loginpasswordfield);
+        mLoginButton = (Button) findViewById(R.id.loginbtn);
+        mNewAccount = (Button) findViewById(R.id.newaccount);
     }
 
     private void checkLogin() {
@@ -89,27 +94,20 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void checkUserExist() {
-
         final String user_id = mAuth.getCurrentUser().getUid();
         mDatabaseUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
                 if (dataSnapshot.hasChild(user_id)) {
-
                     Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                     mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(mainIntent);
-
                 } else {
-
                     Intent setupIntent = new Intent(LoginActivity.this, SetupActivity.class);
                     setupIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(setupIntent);
-
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

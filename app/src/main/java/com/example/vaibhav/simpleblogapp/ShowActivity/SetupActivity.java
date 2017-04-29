@@ -1,15 +1,18 @@
 package com.example.vaibhav.simpleblogapp.ShowActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.vaibhav.simpleblogapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,72 +37,18 @@ public class SetupActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private StorageReference mStorageRef;
     private static final int GALLARY_REQUEST = 1;
-    // private ProgressDialog mProgress;
+    private ProgressDialog mProgress;
 
     public SetupActivity() {
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
-
-        mAuth = FirebaseAuth.getInstance();
-        mStorageRef = FirebaseStorage.getInstance().getReference().child("ProfileImages");
-        mDatabseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
-        mSetupImage = (ImageButton) findViewById(R.id.setupImagebtn);
-        mNameField = (EditText) findViewById(R.id.setupName);
-        mFinishBtn = (Button) findViewById(R.id.finishbtn);
-        mSetupImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent galleryIntent = new Intent();
-                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                galleryIntent.setType("image/*");
-                startActivityForResult(galleryIntent, GALLARY_REQUEST);
-            }
-        });
-        mFinishBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                startSetupAccount();
-            }
-        });
-
-    }
-
-    private void startSetupAccount() {
-        final String name = mNameField.getText().toString().trim();
-        //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        final String user_id = mAuth.getCurrentUser().getUid();
-        if (!TextUtils.isEmpty(name) && mImageUri != null) {
-            //Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
-            // mProgress.show();
-            StorageReference filepath = mStorageRef.child(mImageUri.getLastPathSegment());
-
-            filepath.putFile(mImageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            String downloadUri = taskSnapshot.getDownloadUrl().toString();
-                            mDatabseUsers.child(user_id).child("name").setValue(name);
-                            mDatabseUsers.child(user_id).child("image").setValue(downloadUri);
-                            Intent mainIntent = new Intent(SetupActivity.this, MainActivity.class);
-                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(mainIntent);
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception exception) {
-                            // Handle unsuccessful uploads
-                            // ...
-                        }
-                    });
-            // mProgress.dismiss();
-        }
-
+        bindViews();
+        onClickMethods();
     }
 
     @Override
@@ -121,7 +70,69 @@ public class SetupActivity extends AppCompatActivity {
                 mSetupImage.setImageURI(mImageUri);
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
+                Log.d("setupError", error + "");
             }
         }
     }
+
+    private void bindViews() {
+        mAuth = FirebaseAuth.getInstance();
+        mStorageRef = FirebaseStorage.getInstance().getReference().child("ProfileImages");
+        mDatabseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
+        mSetupImage = (ImageButton) findViewById(R.id.setupImagebtn);
+        mNameField = (EditText) findViewById(R.id.setupName);
+        mFinishBtn = (Button) findViewById(R.id.finishbtn);
+    }
+
+    private void onClickMethods() {
+
+        mSetupImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent galleryIntent = new Intent();
+                galleryIntent.setAction(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, GALLARY_REQUEST);
+            }
+        });
+        mFinishBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                startSetupAccount();
+            }
+        });
+    }
+
+    private void startSetupAccount() {
+        final String name = mNameField.getText().toString().trim();
+        final String user_id = mAuth.getCurrentUser().getUid();
+        if (!TextUtils.isEmpty(name) && mImageUri != null) {
+            mProgress.show();
+            StorageReference filepath = mStorageRef.child(mImageUri.getLastPathSegment());
+
+            filepath.putFile(mImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            String downloadUri = taskSnapshot.getDownloadUrl().toString();
+                            mDatabseUsers.child(user_id).child("name").setValue(name);
+                            mDatabseUsers.child(user_id).child("image").setValue(downloadUri);
+                            Intent mainIntent = new Intent(SetupActivity.this, MainActivity.class);
+                            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            mProgress.dismiss();
+                            startActivity(mainIntent);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            Toast.makeText(SetupActivity.this, "FAILED!!", Toast.LENGTH_LONG).show();
+                            mProgress.dismiss();
+                        }
+                    });
+            mProgress.dismiss();
+        }
+    }
+
 }
