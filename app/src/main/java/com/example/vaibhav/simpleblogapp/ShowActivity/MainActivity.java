@@ -15,7 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.vaibhav.simpleblogapp.Classes.Blog;
+import com.example.vaibhav.simpleblogapp.Models.Blog;
 import com.example.vaibhav.simpleblogapp.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.auth.FirebaseAuth;

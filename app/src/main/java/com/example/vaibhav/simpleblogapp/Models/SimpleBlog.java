@@ -1,4 +1,4 @@
-package com.example.vaibhav.simpleblogapp.Classes;
+package com.example.vaibhav.simpleblogapp.Models;
 
 import android.app.Application;
 

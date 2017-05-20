@@ -1,4 +1,4 @@
-package com.example.vaibhav.simpleblogapp.Classes;
+package com.example.vaibhav.simpleblogapp.Models;
 
 /**
  * Created by vaibhav on 7/1/17.

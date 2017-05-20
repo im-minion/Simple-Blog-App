@@ -39,6 +39,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         bindViews();
 
         mNewAccount.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabaseUsers.keepSynced(true);
         mProgressbar = new ProgressDialog(this);
+
         mLoginEmailField = (EditText) findViewById(R.id.loginemailfield);
         mLoginPasswordField = (EditText) findViewById(R.id.loginpasswordfield);
         mLoginButton = (Button) findViewById(R.id.loginbtn);
