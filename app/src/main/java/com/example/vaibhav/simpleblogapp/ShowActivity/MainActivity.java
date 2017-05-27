@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             protected void populateViewHolder(BloViewHolder viewHolder, Blog model, int position) {
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDESCRIPTION());
+                viewHolder.setUsername(model.getUsername());
                 viewHolder.setImage(getApplicationContext(), model.getIMAGE());
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -158,11 +159,17 @@ public class MainActivity extends AppCompatActivity {
             post_description.setText(DESCRIPTION);
         }
 
+        public void setUsername(String username) {
+            TextView post_username = (TextView) mView.findViewById(R.id.post_username);
+            post_username.setText(username);
+        }
+
         public void setImage(Context ctx, String IMAGE) {
 
             ImageView post_image = (ImageView) mView.findViewById(R.id.post_image);
             Picasso.with(ctx).load(IMAGE).into(post_image);
         }
+
     }
 
     @Override

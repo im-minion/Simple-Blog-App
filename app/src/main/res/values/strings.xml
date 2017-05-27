@@ -3,4 +3,5 @@
     <string name="need_new_account">Need New ACCOUNT?</string>
     <string name="e_mail_id">E-mail ID</string>
     <string name="name">Name</string>
+    <string name="uname">Username</string>
 </resources>

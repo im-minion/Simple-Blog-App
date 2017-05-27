@@ -5,10 +5,17 @@ package com.example.vaibhav.simpleblogapp.Models;
  */
 
 public class Blog {
-
     private String Title;
     private String DESCRIPTION;
     private String IMAGE;
+    private String username;
+
+    public Blog(String title, String DESCRIPTION, String IMAGE, String username) {
+        Title = title;
+        this.DESCRIPTION = DESCRIPTION;
+        this.IMAGE = IMAGE;
+        this.username = username;
+    }
 
     public Blog() {
 
@@ -38,5 +45,11 @@ public class Blog {
         this.IMAGE = IMAGE;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
