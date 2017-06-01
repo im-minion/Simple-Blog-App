@@ -11,14 +11,14 @@
     <ImageButton
         android:id="@+id/imageButton2"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="150dp"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
         android:background="@android:color/transparent"
         android:scaleType="fitCenter"
-        app:srcCompat="@drawable/clktoadd" />
+        app:srcCompat="@mipmap/ic_add_white_24dp" />
 
     <EditText
         android:id="@+id/editText1"
@@ -29,7 +29,9 @@
         android:background="@drawable/input_outline"
         android:hint="Post Title.."
         android:inputType="textPersonName"
-        android:padding="20dp" />
+        android:padding="20dp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/editText2"
@@ -39,7 +41,8 @@
         android:layout_margin="20dp"
         android:background="@drawable/input_outline"
         android:hint="Post Description..."
-        android:padding="20dp" />
+        android:padding="20dp"
+        android:textColor="@android:color/black" />
 
     <Button
         android:id="@+id/btn"
@@ -51,6 +54,6 @@
         android:background="@color/colorPrimary"
         android:padding="20dp"
         android:text="Submit"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/black" />
 
 </RelativeLayout>

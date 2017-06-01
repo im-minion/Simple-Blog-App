@@ -98,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
         mDatabaseUsers.keepSynced(true);
         mDatabase.keepSynced(true);
     }
-
     private void blogList() {
         mBlogList = (RecyclerView) findViewById(R.id.blog_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -107,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
         mBlogList.setHasFixedSize(true);
         mBlogList.setLayoutManager(layoutManager);
     }
-
     private void checkUserExist() {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -124,14 +122,12 @@ public class MainActivity extends AppCompatActivity {
                         onStart();
                     }
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
             });
         }
     }
-
 
     public static class BloViewHolder extends RecyclerView.ViewHolder {
         View mView;
@@ -152,26 +148,19 @@ public class MainActivity extends AppCompatActivity {
         public void setTitle(String title) {
             post_title.setText(title);
         }
-
         public void setDesc(String DESCRIPTION) {
-
             TextView post_description = (TextView) mView.findViewById(R.id.post_text);
             post_description.setText(DESCRIPTION);
         }
-
         public void setUsername(String username) {
             TextView post_username = (TextView) mView.findViewById(R.id.post_username);
             post_username.setText(username);
         }
-
         public void setImage(Context ctx, String IMAGE) {
-
             ImageView post_image = (ImageView) mView.findViewById(R.id.post_image);
             Picasso.with(ctx).load(IMAGE).into(post_image);
         }
-
     }
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -182,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -199,8 +187,6 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
-
     private void logout() {
         mAuth.signOut();
     }

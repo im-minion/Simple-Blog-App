@@ -35,5 +35,5 @@
         android:background="@color/colorPrimary"
         android:padding="0dp"
         android:text="Finish Setup"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/black" />
 </RelativeLayout>

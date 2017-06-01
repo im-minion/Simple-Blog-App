@@ -21,7 +21,7 @@
         android:hint="@string/e_mail_id"
         android:inputType="textEmailAddress"
         android:padding="20dp"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@android:color/black" />
 
     <EditText
         android:id="@+id/loginpasswordfield"
@@ -38,7 +38,7 @@
         android:padding="20dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@android:color/black" />
 
     <Button
         android:id="@+id/loginbtn"
@@ -47,10 +47,10 @@
         android:layout_below="@+id/loginpasswordfield"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/input_outline2"
         android:padding="20dp"
         android:text="LOGIN"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/black" />
 
     <Button
         android:id="@+id/newaccount"
@@ -59,9 +59,9 @@
         android:layout_below="@+id/loginbtn"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/input_outline2"
         android:padding="20dp"
         android:text="@string/need_new_account"
-        android:textColor="@android:color/white" />
+        android:textColor="@android:color/black" />
 
 </RelativeLayout>
