@@ -61,11 +61,21 @@
 
     </com.google.android.gms.common.SignInButton>
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/fb_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="33dp"
+        android:gravity="center"
+        android:layout_below="@+id/google_sign_in_button"
+        android:layout_centerHorizontal="true" />
+
     <Button
         android:id="@+id/newaccount"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/google_sign_in_button"
+        android:layout_height="10dp"
+        android:layout_below="@+id/fb_login_button"
         android:layout_centerHorizontal="true"
         android:layout_margin="20dp"
         android:background="@drawable/input_outline2"
