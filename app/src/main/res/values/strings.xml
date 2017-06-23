@@ -6,4 +6,11 @@
     <string name="uname">Username</string>
     <string name="facebook_app_id">1455972557797661</string>
     <string name="fb_login_protocol_scheme">fb1455972557797661</string>
+    <string name="phone">Phone</string>
+    <string name="go">go</string>
+    <string name="login">LOGIN</string>
+    <string name="password">Password</string>
+    <string name="or">OR</string>
+    <string name="register">REGISTER</string>
+    <string name="sign_up">Sign Up</string>
 </resources>

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.vaibhav.simpleblogapp.R;
@@ -44,6 +45,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 
+import java.util.concurrent.TimeUnit;
+
+import static android.R.attr.phoneNumber;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     private EditText mLoginEmailField;
@@ -63,6 +68,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
+
+    private String number;
 
     private GoogleApiClient mGoogleApiClient;
 
@@ -159,8 +166,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
-//1455972557797661
-    //d36f1ea27ff477805f7d382e88b1ed84
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
@@ -176,7 +182,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             mAuth = FirebaseAuth.getInstance();
                             Toast.makeText(LoginActivity.this, "Welcome..!", Toast.LENGTH_SHORT).show();
                             checkUserExist();
-
                             //***updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -185,14 +190,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Toast.LENGTH_SHORT).show();
                             //****updateUI(null);
                         }
-
                         // ...
                     }
                 });
     }
+
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -202,7 +206,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(LoginActivity.this,"204success",Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "204success", Toast.LENGTH_LONG).show();
                             checkUserExist();
 
                         } else {
@@ -210,31 +214,27 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            Toast.makeText(LoginActivity.this,"210fail"+task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "210fail" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
-
                         // ...
                     }
                 });
     }
-
 
     private void bindViews() {
         mAuth = FirebaseAuth.getInstance();
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabaseUsers.keepSynced(true);
         mProgressbar = new ProgressDialog(this);
-
         mLoginEmailField = (EditText) findViewById(R.id.loginemailfield);
         mLoginPasswordField = (EditText) findViewById(R.id.loginpasswordfield);
         mLoginButton = (Button) findViewById(R.id.loginbtn);
         mNewAccount = (Button) findViewById(R.id.newaccount);
         signInButton = (SignInButton) findViewById(R.id.google_sign_in_button);
-        loginButton = (LoginButton)findViewById(R.id.fb_login_button);
+        loginButton = (LoginButton) findViewById(R.id.fb_login_button);
     }
 
     private void checkLogin() {
-
         String email = mLoginEmailField.getText().toString().trim();
         String password = mLoginPasswordField.getText().toString().trim();
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
@@ -297,3 +297,5 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 //hash key
 //8XVPHaUeV2wPURiHhBMmGl9tq4Q=
 //2jmj7l5rSw0yVb/vlWAYkK/YBwk=
+//1455972557797661
+//d36f1ea27ff477805f7d382e88b1ed84
