@@ -15,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "768693657101-ik0vn9f4jcf4venrhgsg5ail2msvol9v.apps.googleusercontent.com",
+          "client_id": "768693657101-jmo5scebk7tkfisounqnou97scvgceot.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.vaibhav.simpleblogapp",
-            "certificate_hash": "EA2BA653585B4E194388B1934DB698B42B337B5A"
+            "certificate_hash": "f1754f1da51e576c0f5118878413261a5f6dab84"
           }
         },
         {

@@ -4,4 +4,6 @@
     <string name="e_mail_id">E-mail ID</string>
     <string name="name">Name</string>
     <string name="uname">Username</string>
+    <string name="facebook_app_id">1455972557797661</string>
+    <string name="fb_login_protocol_scheme">fb1455972557797661</string>
 </resources>
