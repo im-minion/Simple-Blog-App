@@ -52,6 +52,11 @@ dependencies {
     compile 'com.firebaseui:firebase-ui-database:0.4.0'
 
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    // Include all the Twitter APIs
+    compile 'com.twitter.sdk.android:twitter:3.0.0'
+    // (Optional) Monetize using mopub
+    compile 'com.twitter.sdk.android:tweet-ui:3.0.0'
+    compile 'com.twitter.sdk.android:tweet-composer:3.0.0'
 
     compile 'com.squareup.picasso:picasso:2.5.2'
 

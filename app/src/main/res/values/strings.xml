@@ -6,6 +6,8 @@
     <string name="uname">Username</string>
     <string name="facebook_app_id">1455972557797661</string>
     <string name="fb_login_protocol_scheme">fb1455972557797661</string>
+    <string name="com.twitter.sdk.android.CONSUMER_KEY">8exiccA9xOj9mSHAuelUSIXGk</string>
+    <string name="com.twitter.sdk.android.CONSUMER_SECRET">roOLuJFxWNoTPxt5xinJC1Y044G5nQreQUkyluTtWSG71hT5sf</string>
     <string name="phone">Phone</string>
     <string name="go">go</string>
     <string name="login">LOGIN</string>

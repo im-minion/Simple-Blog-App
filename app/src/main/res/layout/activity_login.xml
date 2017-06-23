@@ -72,7 +72,14 @@
             android:id="@+id/fb_login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"/>
+        <com.twitter.sdk.android.core.identity.TwitterLoginButton
+            android:id="@+id/t_login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            />
     </LinearLayout>
 
     <Button
