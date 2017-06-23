@@ -1,7 +1,10 @@
 package com.example.vaibhav.simpleblogapp.ShowActivity;
 
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.vaibhav.simpleblogapp.FCMthings.SharedPrefManager;
+import com.example.vaibhav.simpleblogapp.MyfirebaseInstanceServices;
 import com.example.vaibhav.simpleblogapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,6 +43,8 @@ public class SetupActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
     private static final int GALLARY_REQUEST = 1;
     private ProgressDialog mProgress;
+    private BroadcastReceiver broadcastReceiver;
+    private String tokenString = null;
 
     public SetupActivity() {
 
@@ -47,6 +54,15 @@ public class SetupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setup);
+        registerReceiver(broadcastReceiver, new IntentFilter(MyfirebaseInstanceServices.TOKEN_BROADCAST));
+        broadcastReceiver = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                tokenString = SharedPrefManager.getInstance(SetupActivity.this).getToken();
+            }
+        };
+        tokenString = SharedPrefManager.getInstance(SetupActivity.this).getToken();
+//        Log.d("received", " " + tokenString);
         bindViews();
         onClickMethods();
     }
@@ -119,6 +135,7 @@ public class SetupActivity extends AppCompatActivity {
                             String downloadUri = taskSnapshot.getDownloadUrl().toString();
                             mDatabseUsers.child(user_id).child("name").setValue(name);
                             mDatabseUsers.child(user_id).child("image").setValue(downloadUri);
+                            mDatabseUsers.child(user_id).child("token").setValue(tokenString);
                             Intent mainIntent = new Intent(SetupActivity.this, MainActivity.class);
                             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             mProgress.dismiss();

@@ -1,8 +1,9 @@
-package com.example.vaibhav.simpleblogapp.FCMthings;
+package com.example.vaibhav.simpleblogapp;
 
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.vaibhav.simpleblogapp.FCMthings.SharedPrefManager;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
@@ -18,7 +19,7 @@ public class MyfirebaseInstanceServices extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
-        Log.d("Firabase TOKEN : ", "Refreshed token: " + refreshedToken);
+        Log.d("FirabaseTOKEN", " " + refreshedToken);
 
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
