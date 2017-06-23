@@ -73,7 +73,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private TwitterLoginButton twitterLoginButton;
     CallbackManager mCallbackManager;
     private FirebaseAuth.AuthStateListener mAuthListenere;
-
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
@@ -92,7 +91,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
         bindViews();
-
         mAuth = FirebaseAuth.getInstance();
 
         mNewAccount.setOnClickListener(new View.OnClickListener() {
@@ -158,13 +156,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
-                // ...
             }
 
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG, "facebook:onError", error);
-                // ...
             }
         });
     }
@@ -173,7 +169,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -188,7 +183,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 firebaseAuthWithGoogle(account);
             } else {
                 // Google Sign In failed, update UI appropriately
-                // ...
             }
         }
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
@@ -219,7 +213,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Toast.LENGTH_SHORT).show();
                             //****updateUI(null);
                         }
-                        // ...
                     }
                 });
     }
@@ -245,7 +238,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Toast.LENGTH_SHORT).show();
                             Toast.makeText(LoginActivity.this, "fb254fail" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
-                        // ...
                     }
                 });
     }
@@ -274,8 +266,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                     Toast.LENGTH_SHORT).show();
                             //**** updateUI(null);
                         }
-
-                        // ...
                     }
                 });
     }
@@ -337,7 +327,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });
     }
@@ -351,11 +340,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 }
 //hash key
 //8XVPHaUeV2wPURiHhBMmGl9tq4Q=
 //2jmj7l5rSw0yVb/vlWAYkK/YBwk=
-//1455972557797661
-//d36f1ea27ff477805f7d382e88b1ed84
+//fb--1455972557797661
+//fb--d36f1ea27ff477805f7d382e88b1ed84
