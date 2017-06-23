@@ -42,6 +42,11 @@
         <activity android:name=".ShowActivity.RegisterActivity" />
         <activity android:name=".ShowActivity.LoginActivity" />
         <activity android:name=".ShowActivity.SetupActivity"></activity>
+        <service android:name=".FCMthings.MyfirebaseInstanceServices">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>
