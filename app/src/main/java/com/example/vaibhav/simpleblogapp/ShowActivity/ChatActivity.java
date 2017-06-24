@@ -87,19 +87,39 @@ public class ChatActivity extends AppCompatActivity {
                     if (message.isEmpty()) {
                         input.setError("You can't post an empty Message. !!");
                     } else {
-                        FirebaseDatabase.getInstance()
-                                .getReference()
-                                .push()
-                                .setValue(new ChatMessage(input.getText().toString(),
-                                                FirebaseAuth.getInstance()
-                                                        .getCurrentUser()
-                                                        .getDisplayName(), FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
-                                        //TODO: here there is a chnce of error....chk im not able to do that
-                                        //FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString() this is giving error
-                                        //problem is of android version
-                                );
-                        Log.d("abcdabcd", String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()));
-                        // Clear the input
+                        if(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl() == null){
+                            FirebaseDatabase.getInstance()
+                                    .getReference()
+                                    .push()
+                                    .setValue(new ChatMessage(input.getText().toString(),
+                                                    FirebaseAuth.getInstance()
+                                                            .getCurrentUser()
+                                                            .getDisplayName(),
+                                                    "http://www.gpp-kavkaz.ru/images/no_avatar.jpg?crc=238954602")
+                                            //TODO: here there is a chnce of error....chk im not able to do that
+                                            //FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString() this is giving error
+                                            //problem is of android version
+                                    );
+                            Log.d("abcdabcd", String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()));
+                            // Clear the input
+                        }
+                        else {
+                            FirebaseDatabase.getInstance()
+                                    .getReference()
+                                    .push()
+                                    .setValue(new ChatMessage(input.getText().toString(),
+                                                    FirebaseAuth.getInstance()
+                                                            .getCurrentUser()
+                                                            .getDisplayName(),
+                                                    FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
+                                            //TODO: here there is a chnce of error....chk im not able to do that
+                                            //FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString() this is giving error
+                                            //problem is of android version
+                                    );
+                            Log.d("abcdabcd", String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()));
+                            // Clear the input
+                        }
+
                     }
                     input.setText("");
                 }
