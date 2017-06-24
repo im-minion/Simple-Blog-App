@@ -49,7 +49,7 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ShowActivity.ChatActivity"></activity>
+        <activity android:name=".ShowActivity.ChatActivity" />
     </application>
 
 </manifest>
