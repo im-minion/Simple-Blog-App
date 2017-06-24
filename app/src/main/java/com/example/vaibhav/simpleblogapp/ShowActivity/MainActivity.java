@@ -23,6 +23,8 @@ import android.widget.Toast;
 import com.example.vaibhav.simpleblogapp.Models.Blog;
 import com.example.vaibhav.simpleblogapp.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -42,12 +44,16 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabaseUsers;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FloatingActionButton floatingActionButton;
+    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        adView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+        Log.d("tagasdasdasd", " " + adRequest);
         firebaseInit();
 
         blogList();
@@ -55,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,ChatActivity.class));
+                startActivity(new Intent(MainActivity.this, ChatActivity.class));
             }
         });
         checkUserExist();
@@ -96,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void firebaseInit() {
+
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
 
