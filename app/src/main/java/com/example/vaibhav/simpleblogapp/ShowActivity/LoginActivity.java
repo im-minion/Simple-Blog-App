@@ -139,6 +139,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void failure(TwitterException exception) {
                 Log.w(TAG, "twitterLogin:failure", exception);
+
             }
         });
     }
@@ -147,6 +148,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mCallbackManager = CallbackManager.Factory.create();
         loginButton.setReadPermissions("email", "public_profile");
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
@@ -192,7 +194,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-
+        mProgressbar.setMessage("Checking LOGIN.....");
+        mProgressbar.show();
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -205,12 +208,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             mAuth = FirebaseAuth.getInstance();
                             Toast.makeText(LoginActivity.this, "Welcome..!", Toast.LENGTH_SHORT).show();
                             checkUserExist();
+                            mProgressbar.dismiss();
                             //***updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed." + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
+                            mProgressbar.dismiss();
                             //****updateUI(null);
                         }
                     }
@@ -219,6 +224,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void handleFacebookAccessToken(AccessToken token) {
         Log.d(TAG, "handleFacebookAccessToken:" + token);
+        mProgressbar.setMessage("Checking LOGIN.....");
+        mProgressbar.show();
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -227,16 +234,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(LoginActivity.this, "fb246success", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Welcome!", Toast.LENGTH_LONG).show();
                             checkUserExist();
+                            mProgressbar.dismiss();
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            Toast.makeText(LoginActivity.this, "fb254fail" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            mProgressbar.dismiss();
+                            Toast.makeText(LoginActivity.this, "Failed247" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -244,7 +252,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void handleTwitterSession(TwitterSession session) {
         Log.d(TAG, "handleTwitterSession:" + session);
-
+        mProgressbar.setMessage("Checking LOGIN.....");
+        mProgressbar.show();
         AuthCredential credential = TwitterAuthProvider.getCredential(
                 session.getAuthToken().token,
                 session.getAuthToken().secret);
@@ -256,14 +265,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            Toast.makeText(LoginActivity.this, "t274success", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "Welcome", Toast.LENGTH_LONG).show();
                             checkUserExist();
+                            mProgressbar.dismiss();
                             //***** updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "t280fail" + task.getException().getMessage(),
+
+                            Toast.makeText(LoginActivity.this, "Failed276" + task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
+                            mProgressbar.dismiss();
                             //**** updateUI(null);
                         }
                     }
