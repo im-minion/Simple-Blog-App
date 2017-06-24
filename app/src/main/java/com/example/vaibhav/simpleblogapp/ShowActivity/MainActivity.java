@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseUsers;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +52,15 @@ public class MainActivity extends AppCompatActivity {
 
         blogList();
 
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,ChatActivity.class));
+            }
+        });
         checkUserExist();
     }
+
     @Override
     public void onStop() {
         super.onStop();
@@ -104,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         mDatabaseUsers.keepSynced(true);
         mDatabase.keepSynced(true);
     }
+
     private void blogList() {
         mBlogList = (RecyclerView) findViewById(R.id.blog_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
@@ -111,7 +121,9 @@ public class MainActivity extends AppCompatActivity {
         layoutManager.setStackFromEnd(true);
         mBlogList.setHasFixedSize(true);
         mBlogList.setLayoutManager(layoutManager);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
     }
+
     private void checkUserExist() {
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -128,6 +140,7 @@ public class MainActivity extends AppCompatActivity {
                         onStart();
                     }
                 }
+
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                 }
@@ -154,19 +167,23 @@ public class MainActivity extends AppCompatActivity {
         public void setTitle(String title) {
             post_title.setText(title);
         }
+
         public void setDesc(String DESCRIPTION) {
             TextView post_description = (TextView) mView.findViewById(R.id.post_text);
             post_description.setText(DESCRIPTION);
         }
+
         public void setUsername(String username) {
             TextView post_username = (TextView) mView.findViewById(R.id.post_username);
             post_username.setText(username);
         }
+
         public void setImage(Context ctx, String IMAGE) {
             ImageView post_image = (ImageView) mView.findViewById(R.id.post_image);
             Picasso.with(ctx).load(IMAGE).into(post_image);
         }
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -177,6 +194,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -193,6 +211,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void logout() {
         mAuth.signOut();
 
