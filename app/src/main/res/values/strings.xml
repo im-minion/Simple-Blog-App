@@ -15,4 +15,6 @@
     <string name="or">OR</string>
     <string name="register">REGISTER</string>
     <string name="sign_up">Sign Up</string>
+    <string name="post_desc_goes_here">POST DESC GOES HERE</string>
+    <string name="post_title_goes_here">POST TITLE GOES HERE</string>
 </resources>
