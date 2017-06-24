@@ -19,7 +19,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="55dp"
+        android:layout_marginBottom="65dp"
+        android:layout_marginRight="5dp"
+        android:backgroundTint="@color/colorPrimary"
         android:padding="10dp"
-        android:src="@color/colorPrimary" />
+        android:src="@drawable/send" />
 </RelativeLayout>

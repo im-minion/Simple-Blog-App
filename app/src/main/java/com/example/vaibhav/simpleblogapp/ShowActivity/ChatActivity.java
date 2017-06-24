@@ -87,7 +87,7 @@ public class ChatActivity extends AppCompatActivity {
                     if (message.isEmpty()) {
                         input.setError("You can't post an empty Message. !!");
                     } else {
-                        if(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl() == null){
+                        if (FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl() == null) {
                             FirebaseDatabase.getInstance()
                                     .getReference()
                                     .push()
@@ -102,8 +102,7 @@ public class ChatActivity extends AppCompatActivity {
                                     );
                             Log.d("abcdabcd", String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()));
                             // Clear the input
-                        }
-                        else {
+                        } else {
                             FirebaseDatabase.getInstance()
                                     .getReference()
                                     .push()
@@ -142,6 +141,7 @@ public class ChatActivity extends AppCompatActivity {
 //                    .build(), RC_SIGN_IN);
         }
     }
+
     private void displayChatMessages() {
         adapter = new FirebaseListAdapter<ChatMessage>(ChatActivity.this, ChatMessage.class,
                 R.layout.message, FirebaseDatabase.getInstance().getReference()) {
@@ -168,6 +168,7 @@ public class ChatActivity extends AppCompatActivity {
 
         listOfMessages.setAdapter(adapter);
     }
+
     private void lastMessage() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         // change this to your databae ref
