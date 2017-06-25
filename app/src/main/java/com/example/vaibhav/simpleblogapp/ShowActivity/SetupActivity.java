@@ -18,12 +18,11 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.vaibhav.simpleblogapp.FCMthings.SharedPrefManager;
-import com.example.vaibhav.simpleblogapp.MyfirebaseInstanceServices;
+import com.example.vaibhav.simpleblogapp.FCMthings.MyfirebaseInstanceServices;
 import com.example.vaibhav.simpleblogapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;

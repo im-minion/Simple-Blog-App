@@ -1,4 +1,4 @@
-package com.example.vaibhav.simpleblogapp;
+package com.example.vaibhav.simpleblogapp.FCMthings;
 
 import android.content.Intent;
 import android.util.Log;

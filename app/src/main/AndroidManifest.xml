@@ -43,7 +43,7 @@
         <activity android:name=".ShowActivity.LoginActivity" />
         <activity android:name=".ShowActivity.SetupActivity" />
 
-        <service android:name=".MyfirebaseInstanceServices">
+        <service android:name=".FCMthings.MyfirebaseInstanceServices">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
