@@ -1,5 +1,6 @@
 package com.example.vaibhav.simpleblogapp.ShowActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -48,27 +49,8 @@ public class ChatActivity extends AppCompatActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         listOfMessages = (ListView) findViewById(R.id.list_of_messages);
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-//            // Start sign in/sign up activity
-//            startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
-//                    .setTosUrl(PATH_TOS)
-//                    .setIsSmartLockEnabled(true)
-//                    .setProviders(Arrays.asList(
-//                            new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()
-//                    ))
-//                    .build(), RC_SIGN_IN);
-
+            startActivity(new Intent(ChatActivity.this, LoginActivity.class));
         } else {
-            // User is already signed in. Therefore, display
-            // a welcome Toast
-//            Toast.makeText(getActivity().getApplication(),
-//                    "Welcome " + FirebaseAuth.getInstance()
-//                            .getCurrentUser()
-//                            .getDisplayName(),
-//                    Toast.LENGTH_LONG)
-//                    .show();
-
-            // Load chat room contents
-
             displayChatMessages();
             lastMessage();
 
