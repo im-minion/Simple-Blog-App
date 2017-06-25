@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                            Toast.makeText(MainActivity.this, "UserAheRe" + FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "User is Present in DB" + FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
                             startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                         } else {
                             startActivity(new Intent(MainActivity.this, SetupActivity.class));

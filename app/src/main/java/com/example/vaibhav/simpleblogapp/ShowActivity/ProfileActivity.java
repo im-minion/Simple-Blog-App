@@ -27,13 +27,10 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ProfileActivity extends AppCompatActivity {
     CircleImageView circleImageViewProfile;
     TextView textViewProfile;
-    String username;
-    Uri userImageUrl;
     String uimage;
     String uname;
     Button buttonProfile;
     private DatabaseReference mDatabseUsers;
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +38,6 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         bindViews();
         mDatabseUsers = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        //.child("name");
         mDatabseUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -56,22 +52,12 @@ public class ProfileActivity extends AppCompatActivity {
                     Picasso.with(getApplicationContext()).load(uimage).into(circleImageViewProfile);
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
             }
         });
 
-//
-//        String temp = getString(R.string.log_in_as) + uname;
-
-        // Picasso.with(getApplicationContext()).load(uimage).into(circleImageViewProfile);
-        //
-//        textViewProfile.setText(temp);
-//        if (userImageUrl != null) {
-//            Picasso.with(getApplicationContext()).load(userImageUrl).into(circleImageViewProfile);
-//        } else {
-//            circleImageViewProfile.setImageResource(R.drawable.profileicon9);
-//        }
         buttonProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,8 +73,5 @@ public class ProfileActivity extends AppCompatActivity {
         circleImageViewProfile = (CircleImageView) findViewById(R.id.ProfilecircleImageView);
         textViewProfile = (TextView) findViewById(R.id.profileTextView);
         buttonProfile = (Button) findViewById(R.id.profileLogOut);
-//        username = FirebaseAuth.getInstance().getCurrentUser().getEmail();
-//        userImageUrl = FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl();
-
     }
 }
