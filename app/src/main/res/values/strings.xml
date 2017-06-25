@@ -18,4 +18,6 @@
     <string name="post_desc_goes_here">POST DESC GOES HERE</string>
     <string name="post_title_goes_here">POST TITLE GOES HERE</string>
     <string name="enter_yor_text">Enter Yor Text ....</string>
+    <string name="logOut">Log Out</string>
+    <string name="log_in_as">Logged in as\n</string>
 </resources>

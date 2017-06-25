@@ -18,6 +18,7 @@ import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -71,7 +72,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private SignInButton signInButton;
     private LoginButton loginButton;
     private TwitterLoginButton twitterLoginButton;
-    CallbackManager mCallbackManager;
+    private CallbackManager mCallbackManager;
     private FirebaseAuth.AuthStateListener mAuthListenere;
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;

@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseUsers;
+    private DatabaseReference mDBRefSetup;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FloatingActionButton floatingActionButton;
     private AdView adView;
@@ -46,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
         adView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
-        Log.d("tagasdasdasd", " " + adRequest);
         firebaseInit();
 
         blogList();
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 BloViewHolder.class,
                 mDatabase) {
             @Override
-            protected void populateViewHolder(BloViewHolder viewHolder, final Blog model, final int position) {
+            protected void populateViewHolder(final BloViewHolder viewHolder, final Blog model, final int position) {
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDESCRIPTION());
                 viewHolder.setUsername(model.getUsername());
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(), "You just cliked on blog", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(), "You just cliked on blog " + viewHolder.post_title.getText(), Toast.LENGTH_LONG).show();
                     }
                 });
             }
@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         };
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDBRefSetup = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabaseUsers.keepSynced(true);
         mDatabase.keepSynced(true);
     }
@@ -206,7 +207,22 @@ public class MainActivity extends AppCompatActivity {
                 logout();
                 break;
             case R.id.action_settings:
-                startActivity(new Intent(MainActivity.this, SetupActivity.class));
+                mDBRefSetup.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                            Toast.makeText(MainActivity.this, "UserAheRe" + FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
+                            startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+                        } else {
+                            startActivity(new Intent(MainActivity.this, SetupActivity.class));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -50,6 +50,7 @@
         </service>
 
         <activity android:name=".ShowActivity.ChatActivity" />
+        <activity android:name=".ShowActivity.ProfileActivity"></activity>
     </application>
 
 </manifest>

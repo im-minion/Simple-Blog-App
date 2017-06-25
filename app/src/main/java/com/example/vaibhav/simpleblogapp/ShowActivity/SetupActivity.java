@@ -20,6 +20,8 @@ import android.widget.Toast;
 import com.example.vaibhav.simpleblogapp.FCMthings.SharedPrefManager;
 import com.example.vaibhav.simpleblogapp.FCMthings.MyfirebaseInstanceServices;
 import com.example.vaibhav.simpleblogapp.R;
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,6 +66,7 @@ public class SetupActivity extends AppCompatActivity {
 //        Log.d("received", " " + tokenString);
         bindViews();
         onClickMethods();
+
     }
 
     @Override
