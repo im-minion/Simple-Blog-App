@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/input_outline2"
-        android:backgroundTint="@color/whitegit"
+        android:backgroundTint="@color/white"
         android:padding="10dp">
 
         <TextView
