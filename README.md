@@ -1,3 +1,3 @@
 # Simple-Blog-App
 
-###Google Firebase-Hackathon Project :)
+### Google Firebase-Hackathon Project :)
