@@ -31,6 +31,7 @@ public class ProfileActivity extends AppCompatActivity {
     String uname;
     Button buttonProfile;
     private DatabaseReference mDatabseUsers;
+    private TextView edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,11 +68,18 @@ public class ProfileActivity extends AppCompatActivity {
                 startActivity(logOut);
             }
         });
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ProfileActivity.this, SetupActivity.class));
+            }
+        });
     }
 
     private void bindViews() {
         circleImageViewProfile = (CircleImageView) findViewById(R.id.ProfilecircleImageView);
         textViewProfile = (TextView) findViewById(R.id.profileTextView);
         buttonProfile = (Button) findViewById(R.id.profileLogOut);
+        edit = (TextView) findViewById(R.id.editProfile);
     }
 }
