@@ -113,14 +113,6 @@ public class ChatActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-            // Start sign in/sign up activity
-//            startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder()
-//                    .setTosUrl(PATH_TOS)
-//                    .setIsSmartLockEnabled(true)
-//                    .setProviders(Arrays.asList(
-//                            new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()
-//                    ))
-//                    .build(), RC_SIGN_IN);
         }
     }
 

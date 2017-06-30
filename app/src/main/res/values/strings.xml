@@ -21,4 +21,6 @@
     <string name="logOut">Log Out</string>
     <string name="log_in_as">Logged in as\n</string>
     <string name="edit">Edit</string>
+    <string name="enter_your_dispaly_name">Enter your Dispaly Name</string>
+    <string name="finish_setup">Finish Setup</string>
 </resources>

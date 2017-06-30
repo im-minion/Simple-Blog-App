@@ -152,7 +152,6 @@ public class SetupActivity extends AppCompatActivity {
                             mProgress.dismiss();
                         }
                     });
-
         }
     }
 
