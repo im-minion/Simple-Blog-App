@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseInit();
 
         blogList();
-
+//comment
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
