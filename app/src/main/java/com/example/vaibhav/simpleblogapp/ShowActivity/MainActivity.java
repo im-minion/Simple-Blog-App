@@ -110,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
+        //instancObj.getReference //maens in the Instance class getReference() is the method
+        ///inthe reference class child("") method is there
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDBRefSetup = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabaseUsers.keepSynced(true);
