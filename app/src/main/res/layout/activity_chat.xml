@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="5dp"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="12dp"
         android:layout_toLeftOf="@id/fab"
         android:background="@drawable/input_outline2"
         android:backgroundTint="@android:color/white"
