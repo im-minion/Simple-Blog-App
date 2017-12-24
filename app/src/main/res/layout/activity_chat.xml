@@ -15,7 +15,6 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="5dp"
-        android:clickable="true"
         android:src="@drawable/send"
         android:tint="@android:color/white"
         app:backgroundTint="@color/colorPrimary"

@@ -16,14 +16,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:baselineAlignBottom="true"
-        android:src="@drawable/send"
-        app:rippleColor="@color/colorPrimary"
-        android:layout_marginRight="8dp"
-        ads:layout_constraintRight_toRightOf="parent"
-        ads:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="60dp"
-        android:layout_marginEnd="8dp" />
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:baselineAlignBottom="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/send"
+        ads:layout_constraintBottom_toBottomOf="parent"
+        ads:layout_constraintRight_toRightOf="parent" />
 
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
@@ -32,17 +32,17 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="0dp"
         ads:adSize="BANNER"
         ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
         ads:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
         ads:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginRight="8dp"
         ads:layout_constraintRight_toRightOf="parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="0dp"
         ads:layout_constraintTop_toBottomOf="parent"
         ads:layout_constraintVertical_bias="1.0" />
 
@@ -55,11 +55,11 @@
         android:layout_marginBottom="4dp"
         android:layout_weight="1"
         android:scrollbars="none"
+        ads:layout_constraintBottom_toTopOf="@+id/adView"
         ads:layout_constraintHorizontal_bias="0.0"
         ads:layout_constraintLeft_toLeftOf="parent"
         ads:layout_constraintRight_toRightOf="parent"
         ads:layout_constraintTop_toTopOf="parent"
-        ads:layout_constraintVertical_bias="0.0"
-        ads:layout_constraintBottom_toTopOf="@+id/adView" />
+        ads:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
