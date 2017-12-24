@@ -13,10 +13,10 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
-        android:background="@android:color/transparent"
+        android:layout_margin="2dp"
+        android:background="@drawable/ic_upload_pic"
         android:padding="10dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/cam" />
+        android:scaleType="centerCrop" />
 
     <EditText
         android:id="@+id/setupName"
@@ -27,7 +27,7 @@
         android:layout_margin="20dp"
         android:background="@drawable/input_outline"
         android:hint="@string/enter_your_dispaly_name"
-        android:padding="20dp"
+        android:padding="16dp"
         android:textColor="@android:color/white"
         android:textColorHint="@android:color/white" />
 

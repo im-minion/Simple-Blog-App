@@ -5,20 +5,21 @@
     android:id="@+id/activity_post"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:layout_gravity="center"
+    android:background="@android:color/white"
+    android:gravity="center"
     tools:context="com.example.vaibhav.simpleblogapp.ShowActivity.PostActivity">
 
     <ImageButton
         android:id="@+id/imageButton2"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:background="@android:color/transparent"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/cam" />
+        android:background="@drawable/ic_upload_pic"
+        android:scaleType="centerCrop" />
 
     <EditText
         android:id="@+id/editText1"
@@ -29,7 +30,7 @@
         android:background="@drawable/input_outline"
         android:hint="Post Title.."
         android:inputType="textPersonName"
-        android:padding="20dp"
+        android:padding="16dp"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
 
@@ -41,8 +42,8 @@
         android:layout_margin="20dp"
         android:background="@drawable/input_outline"
         android:hint="Post Description..."
-        android:padding="20dp"
-        android:textColor="@android:color/black" />
+        android:padding="16dp"
+        android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/btn"
