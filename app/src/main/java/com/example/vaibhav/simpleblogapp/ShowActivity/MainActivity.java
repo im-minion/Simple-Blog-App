@@ -28,6 +28,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
@@ -180,12 +181,33 @@ public class MainActivity extends AppCompatActivity {
             post_username.setText(username);
         }
 
-        public void setImage(Context ctx, String IMAGE) {
-            ImageView post_image = mView.findViewById(R.id.post_image);
-//            TODO: CACHE the images :)
+        public void setImage(final Context ctx, final String IMAGE) {
+            final ImageView post_image = mView.findViewById(R.id.post_image);
             Picasso.with(ctx)
                     .load(IMAGE)
-                    .into(post_image);
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .into(post_image, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                        }
+
+                        @Override
+                        public void onError() {
+                            //if error occured try again by getting the image from online
+                            Picasso.with(ctx)
+                                    .load(IMAGE)
+                                    .error(R.drawable.ic_broken_image)
+                                    .into(post_image, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
+                                        }
+                                        @Override
+                                        public void onError() {
+                                            Toast.makeText(ctx, "failed to load image !", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    });
         }
     }
 
