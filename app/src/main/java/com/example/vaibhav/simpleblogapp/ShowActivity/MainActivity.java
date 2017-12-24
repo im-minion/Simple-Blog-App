@@ -28,6 +28,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,13 +40,12 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDBRefSetup;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FloatingActionButton floatingActionButton;
-    private AdView adView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        adView = (AdView) findViewById(R.id.adView);
+        AdView adView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
         firebaseInit();
@@ -102,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if (firebaseAuth.getInstance().getCurrentUser() == null) {
+                if (FirebaseAuth.getInstance().getCurrentUser() == null) {
                     Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
                     loginIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(loginIntent);
@@ -110,8 +111,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
-        //instancObj.getReference //maens in the Instance class getReference() is the method
-        ///inthe reference class child("") method is there
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDBRefSetup = FirebaseDatabase.getInstance().getReference().child("Users");
         mDatabaseUsers.keepSynced(true);
@@ -119,13 +118,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void blogList() {
-        mBlogList = (RecyclerView) findViewById(R.id.blog_list);
+        mBlogList = findViewById(R.id.blog_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         mBlogList.setHasFixedSize(true);
         mBlogList.setLayoutManager(layoutManager);
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.fab);
+        floatingActionButton = findViewById(R.id.fab);
     }
 
     private void checkUserExist() {
@@ -159,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
         public BloViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
-            post_title = (TextView) mView.findViewById(R.id.post_title);
+            post_title = mView.findViewById(R.id.post_title);
             post_title.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -173,18 +172,42 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void setDesc(String DESCRIPTION) {
-            TextView post_description = (TextView) mView.findViewById(R.id.post_text);
+            TextView post_description = mView.findViewById(R.id.post_text);
             post_description.setText(DESCRIPTION);
         }
 
         public void setUsername(String username) {
-            TextView post_username = (TextView) mView.findViewById(R.id.post_username);
+            TextView post_username = mView.findViewById(R.id.post_username);
             post_username.setText(username);
         }
 
-        public void setImage(Context ctx, String IMAGE) {
-            ImageView post_image = (ImageView) mView.findViewById(R.id.post_image);
-            Picasso.with(ctx).load(IMAGE).into(post_image);
+        public void setImage(final Context ctx, final String IMAGE) {
+            final ImageView post_image = mView.findViewById(R.id.post_image);
+            Picasso.with(ctx)
+                    .load(IMAGE)
+                    .networkPolicy(NetworkPolicy.OFFLINE)
+                    .into(post_image, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                        }
+
+                        @Override
+                        public void onError() {
+                            //if error occured try again by getting the image from online
+                            Picasso.with(ctx)
+                                    .load(IMAGE)
+                                    .error(R.drawable.ic_broken_image)
+                                    .into(post_image, new Callback() {
+                                        @Override
+                                        public void onSuccess() {
+                                        }
+                                        @Override
+                                        public void onError() {
+                                            Toast.makeText(ctx, "failed to load image !", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                        }
+                    });
         }
     }
 
@@ -214,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                            Toast.makeText(MainActivity.this, "User is Present in DB" + FirebaseAuth.getInstance().getCurrentUser().getEmail(), Toast.LENGTH_LONG).show();
+//                            User is Present in DB
                             startActivity(new Intent(MainActivity.this, ProfileActivity.class));
                         } else {
                             startActivity(new Intent(MainActivity.this, SetupActivity.class));

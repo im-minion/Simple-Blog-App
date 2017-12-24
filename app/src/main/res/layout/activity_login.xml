@@ -51,7 +51,7 @@
         android:background="@drawable/input_outline2"
         android:padding="2dp"
         android:text="@string/login"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/white" />
 
     <LinearLayout
         android:id="@+id/linear"
@@ -92,5 +92,5 @@
         android:background="@drawable/input_outline2"
         android:padding="2dp"
         android:text="@string/need_new_account"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/white" />
 </RelativeLayout>
