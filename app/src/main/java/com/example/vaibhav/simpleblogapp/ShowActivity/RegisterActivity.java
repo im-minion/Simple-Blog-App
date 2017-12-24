@@ -49,11 +49,11 @@ public class RegisterActivity extends AppCompatActivity {
     private void init() {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
-        mNameField = (EditText) findViewById(R.id.name);
-        mEmailField = (EditText) findViewById(R.id.email);
-        mPasswordField = (EditText) findViewById(R.id.password);
+        mNameField = findViewById(R.id.name);
+        mEmailField = findViewById(R.id.email);
+        mPasswordField = findViewById(R.id.password);
         mProgress = new ProgressDialog(this);
-        mRegBtn = (Button) findViewById(R.id.btn);
+        mRegBtn = findViewById(R.id.btn);
     }
 
     private void startRegister() {

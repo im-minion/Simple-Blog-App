@@ -27,7 +27,6 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:text="@string/app_name"
             android:textStyle="normal|bold" />
 
         <TextView
@@ -36,8 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/message_user"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:text="@string/app_name" />
+            android:layout_alignParentRight="true" />
 
         <TextView
             android:id="@+id/message_text"
@@ -47,7 +45,6 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/message_user"
             android:layout_marginTop="5dp"
-            android:text="@string/app_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textSize="18sp" />
     </RelativeLayout>

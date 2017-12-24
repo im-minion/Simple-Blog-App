@@ -56,5 +56,5 @@
         android:hint="@string/register"
         android:padding="2dp"
         android:text="@string/sign_up"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/white" />
 </RelativeLayout>

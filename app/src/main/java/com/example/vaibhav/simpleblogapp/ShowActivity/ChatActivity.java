@@ -72,6 +72,7 @@ public class ChatActivity extends AppCompatActivity {
                         if (FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl() == null) {
                             FirebaseDatabase.getInstance()
                                     .getReference()
+                                    .child("chat")
                                     .push()
                                     .setValue(new ChatMessage(input.getText().toString(),
                                                     FirebaseAuth.getInstance()
@@ -87,6 +88,7 @@ public class ChatActivity extends AppCompatActivity {
                         } else {
                             FirebaseDatabase.getInstance()
                                     .getReference()
+                                    .child("chat")
                                     .push()
                                     .setValue(new ChatMessage(input.getText().toString(),
                                                     FirebaseAuth.getInstance()
@@ -118,7 +120,7 @@ public class ChatActivity extends AppCompatActivity {
 
     private void displayChatMessages() {
         adapter = new FirebaseListAdapter<ChatMessage>(ChatActivity.this, ChatMessage.class,
-                R.layout.message, FirebaseDatabase.getInstance().getReference()) {
+                R.layout.message, FirebaseDatabase.getInstance().getReference("/chat")) {
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
                 // Get references to the views of message.xml
