@@ -15,7 +15,6 @@
         android:layout_centerHorizontal="true"
         android:layout_margin="2dp"
         android:background="@drawable/ic_upload_pic"
-        android:padding="10dp"
         android:scaleType="centerCrop" />
 
     <EditText
