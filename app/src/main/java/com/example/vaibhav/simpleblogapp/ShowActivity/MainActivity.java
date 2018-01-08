@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,8 +39,10 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabaseUsers;
     private DatabaseReference mDBRefSetup;
+    private DatabaseReference mDatabaseLike;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FloatingActionButton floatingActionButton;
+    private boolean mProcessLike = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +84,8 @@ public class MainActivity extends AppCompatActivity {
                 mDatabase) {
             @Override
             protected void populateViewHolder(final BloViewHolder viewHolder, final Blog model, final int position) {
+                final String post_key = getRef(position).getKey();
+
                 viewHolder.setTitle(model.getTitle());
                 viewHolder.setDesc(model.getDESCRIPTION());
                 viewHolder.setUsername(model.getUsername());
@@ -89,6 +94,43 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Toast.makeText(getApplicationContext(), "You just cliked on blog " + viewHolder.post_title.getText(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                viewHolder.setLikeBtn(post_key);
+                viewHolder.mLikebtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        mProcessLike = true;
+
+                        mDatabaseLike.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if(mProcessLike) {
+
+                                    if (dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())) {
+
+                                        mDatabaseLike.child(post_key).child(mAuth.getCurrentUser().getUid()).removeValue();
+
+                                        mProcessLike = false;
+
+                                    } else {
+
+                                        mDatabaseLike.child(post_key).child(mAuth.getCurrentUser().getUid()).setValue("RandomValue");
+
+                                        mProcessLike = false;
+
+                                    }
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
                     }
                 });
             }
@@ -113,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Blog");
         mDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("Users");
         mDBRefSetup = FirebaseDatabase.getInstance().getReference().child("Users");
+        mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
+        mDatabaseLike.keepSynced(true);
         mDatabaseUsers.keepSynced(true);
         mDatabase.keepSynced(true);
     }
@@ -154,17 +198,50 @@ public class MainActivity extends AppCompatActivity {
     public static class BloViewHolder extends RecyclerView.ViewHolder {
         View mView;
         TextView post_title;
+        ImageButton mLikebtn;
+        FirebaseAuth mAuth;
+        DatabaseReference mDatabaseLike;
 
         public BloViewHolder(View itemView) {
             super(itemView);
             mView = itemView;
+            mLikebtn = (ImageButton) mView.findViewById(R.id.post_like);
+
+            mDatabaseLike = FirebaseDatabase.getInstance().getReference().child("Likes");
+            mDatabaseLike.keepSynced(true);
+            mAuth = FirebaseAuth.getInstance();
             post_title = mView.findViewById(R.id.post_title);
-            post_title.setOnClickListener(new View.OnClickListener() {
+//            post_title.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Log.d("MAinactivity", "someText");
+//                }
+//            });
+        }
+        public void setLikeBtn(final String post_key){
+
+            mDatabaseLike.addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onClick(View v) {
-                    Log.d("MAinactivity", "someText");
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    if(dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())){
+
+                        mLikebtn.setImageResource(R.drawable.thumb_bluebtn);
+
+                    }else{
+
+                        mLikebtn.setImageResource(R.drawable.thumb_graybtn);
+
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
                 }
             });
+
         }
 
         public void setTitle(String title) {
