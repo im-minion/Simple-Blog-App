@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                         mDatabaseLike.addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                if(mProcessLike) {
+                                if (mProcessLike) {
 
                                     if (dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())) {
 
@@ -218,30 +218,23 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //            });
         }
-        public void setLikeBtn(final String post_key){
 
+        public void setLikeBtn(final String post_key) {
             mDatabaseLike.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    if(dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())){
-
-                        mLikebtn.setImageResource(R.drawable.thumb_bluebtn);
-
-                    }else{
-
-                        mLikebtn.setImageResource(R.drawable.thumb_graybtn);
-
+                    if (dataSnapshot.child(post_key).hasChild(mAuth.getCurrentUser().getUid())) {
+                        mLikebtn.setImageResource(R.drawable.ic_yes_heart_colored);
+                    } else {
+                        mLikebtn.setImageResource(R.drawable.ic_no_heart_gray);
                     }
-
                 }
-
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 
                 }
             });
-
         }
 
         public void setTitle(String title) {
@@ -278,6 +271,7 @@ public class MainActivity extends AppCompatActivity {
                                         @Override
                                         public void onSuccess() {
                                         }
+
                                         @Override
                                         public void onError() {
                                             Toast.makeText(ctx, "failed to load image !", Toast.LENGTH_SHORT).show();

@@ -44,7 +44,7 @@
                 android:layout_gravity="start"
                 android:background="@android:color/transparent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/thumb_graybtn" />
+                android:src="@drawable/ic_no_heart_gray" />
 
             <TextView
                 android:id="@+id/post_username"
