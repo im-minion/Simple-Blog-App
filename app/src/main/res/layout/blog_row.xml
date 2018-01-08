@@ -9,19 +9,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="12dp">
 
         <ImageView
             android:id="@+id/post_image"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:padding="15dp" />
+            android:layout_height="200dp" />
 
         <TextView
             android:id="@+id/post_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
             android:text="@string/post_title_goes_here"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -30,17 +29,32 @@
             android:id="@+id/post_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
+            android:layout_marginTop="4dp"
             android:text="@string/post_desc_goes_here" />
 
-        <TextView
-            android:id="@+id/post_username"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/uname"
-            android:textStyle="bold" />
+            android:layout_marginTop="4dp">
 
+            <ImageButton
+                android:id="@+id/post_like"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_gravity="start"
+                android:background="@android:color/transparent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/thumb_graybtn" />
+
+            <TextView
+                android:id="@+id/post_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="end"
+                android:text="@string/uname"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </LinearLayout>
-
 </android.support.v7.widget.CardView>
