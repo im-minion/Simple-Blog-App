@@ -23,4 +23,7 @@
     <string name="edit">Edit</string>
     <string name="enter_your_dispaly_name">Enter your Dispaly Name</string>
     <string name="finish_setup">Finish Setup</string>
+    <string name="post_title">Post Title..</string>
+    <string name="post_description">Post Description...</string>
+    <string name="submit">Submit</string>
 </resources>

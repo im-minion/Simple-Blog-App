@@ -11,7 +11,7 @@ public class Blog {
     private String username;
 
     public Blog(String title, String DESCRIPTION, String IMAGE, String username) {
-        Title = title;
+        this.Title = title;
         this.DESCRIPTION = DESCRIPTION;
         this.IMAGE = IMAGE;
         this.username = username;
