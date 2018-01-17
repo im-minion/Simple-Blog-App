@@ -21,7 +21,6 @@
         android:hint="@string/e_mail_id"
         android:inputType="textEmailAddress"
         android:padding="10dp"
-
         android:textColor="@android:color/black" />
 
     <EditText
@@ -44,64 +43,67 @@
     <Button
         android:id="@+id/loginbtn"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/loginpasswordfield"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
         android:background="@drawable/input_outline2"
-        android:padding="2dp"
         android:text="@string/login"
         android:textColor="@android:color/white" />
 
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loginbtn"
+        android:layout_centerHorizontal="true"
+        android:text="@string/or_dash" />
+
     <LinearLayout
         android:id="@+id/linear"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/loginbtn"
+        android:layout_below="@+id/text"
+        android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="2dp">
 
         <ImageView
             android:id="@+id/fbimage"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:src="@mipmap/ic_launcher" />
-        <!--<com.google.android.gms.common.SignInButton-->
-        <!--android:id="@+id/google_sign_in_button"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center_horizontal"-->
-        <!--android:layout_marginBottom="10dp" />-->
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_facebook" />
+
         <ImageView
             android:id="@+id/google_sign_in"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_no_heart_gray" />
-        <!--<com.facebook.login.widget.LoginButton-->
-        <!--android:id="@+id/fb_login_button"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center_horizontal"-->
-        <!--android:layout_marginBottom="10dp" />-->
-
-        <com.twitter.sdk.android.core.identity.TwitterLoginButton
-            android:id="@+id/t_login_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal" />
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_google" />
     </LinearLayout>
+
+    <com.twitter.sdk.android.core.identity.TwitterLoginButton
+        android:id="@+id/t_login_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/linear"
+        android:layout_centerHorizontal="true"
+        android:gravity="center" />
 
     <Button
         android:id="@+id/newaccount"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/linear"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/t_login_button"
         android:layout_centerHorizontal="true"
         android:layout_margin="10dp"
         android:background="@drawable/input_outline2"
-        android:padding="2dp"
         android:text="@string/need_new_account"
         android:textColor="@android:color/white" />
 </RelativeLayout>
