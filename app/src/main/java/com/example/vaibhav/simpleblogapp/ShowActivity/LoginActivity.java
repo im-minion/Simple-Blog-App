@@ -65,7 +65,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private Button mLoginButton;
     private ProgressDialog mProgressbar;
     private DatabaseReference mDatabaseUsers;
-    private SignInButton signInButton;
+    //private SignInButton signInButton;
     private TwitterLoginButton twitterLoginButton;
 
     private static final String TAG = "GoogleActivity";
@@ -82,6 +82,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private ImageView fbImage;
     CallbackManager callbackManager;
+
+    private ImageView googleImg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,9 +112,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mNewAccount = findViewById(R.id.newaccount);
 
         fbImage = findViewById(R.id.fbimage);
-        signInButton = findViewById(R.id.google_sign_in_button);
+        //signInButton = findViewById(R.id.google_sign_in_button);
         twitterLoginButton = findViewById(R.id.t_login_button);
 
+        googleImg = findViewById(R.id.google_sign_in);
 
     }
 
@@ -131,10 +134,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }
         });
 
-        signInButton.setOnClickListener(this);
+        //signInButton.setOnClickListener(this);
+
 
         twitterLoginButton.setOnClickListener(this);
 
+        twitter();
+
+        fbInit();
+
+        googleInit();
+
+        googleImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signUpGoogle();
+            }
+        });
+    }
+
+    private void googleInit() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
@@ -143,10 +162,15 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
+    }
 
-        twitter();
-
-        fbInit();
+    private void signUpGoogle() {
+        try {
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+            Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+            startActivityForResult(signInIntent, RC_SIGN_IN);
+        } catch (Exception e) {
+        }
     }
 
     private void fbInit() {
@@ -371,9 +395,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.google_sign_in_button) {
-            signIn();
-        }
+
     }
 
     @Override
