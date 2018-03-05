@@ -9,8 +9,9 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginRight="4dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_user_white"
         app:civ_border_color="@color/white"
-        android:src="@drawable/com_facebook_auth_dialog_background"
         app:civ_border_width="0.5dp" />
 
     <RelativeLayout

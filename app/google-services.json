@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "768693657101-1fr984hncd2bd208mm2hp436qs9hrmt9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vaibhav.simpleblogapp",
+            "certificate_hash": "7b0a8d5f29fcfd508a04c4c8c2b02ee331e4feff"
+          }
+        },
+        {
+          "client_id": "768693657101-9k9abk486eud1das9f828e4p7l59mohc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.vaibhav.simpleblogapp",
+            "certificate_hash": "22f472af043be36d6912d2d8e2ceaf2b7382ce0a"
+          }
+        },
+        {
           "client_id": "768693657101-jmo5scebk7tkfisounqnou97scvgceot.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

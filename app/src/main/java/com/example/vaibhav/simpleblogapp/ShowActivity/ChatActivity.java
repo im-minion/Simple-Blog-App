@@ -2,8 +2,10 @@ package com.example.vaibhav.simpleblogapp.ShowActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
@@ -27,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -45,8 +48,8 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean previouslyStarted = prefs.getBoolean("prev", false);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        listOfMessages = (ListView) findViewById(R.id.list_of_messages);
+        FloatingActionButton fab = findViewById(R.id.fab);
+        listOfMessages = findViewById(R.id.list_of_messages);
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startActivity(new Intent(ChatActivity.this, LoginActivity.class));
         } else {
@@ -61,7 +64,7 @@ public class ChatActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Not logged in!", Toast.LENGTH_SHORT).show();
                     onStart();
                 } else {
-                    input = (EditText) findViewById(R.id.input);
+                    input = findViewById(R.id.input);
                     // Read the input field and push a new instance
                     // of ChatMessage to the Firebase database
                     String message = input.getText().toString();
@@ -73,14 +76,12 @@ public class ChatActivity extends AppCompatActivity {
                                     .getReference()
                                     .child("chat")
                                     .push()
-                                    .setValue(new ChatMessage(input.getText().toString(),
-                                                    FirebaseAuth.getInstance()
-                                                            .getCurrentUser()
-                                                            .getDisplayName(),
-                                                    "http://www.gpp-kavkaz.ru/images/no_avatar.jpg?crc=238954602")
-                                            //TODO: here there is a chnce of error....chk im not able to do that
-                                            //FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString() this is giving error
-                                            //problem is of android version
+                                    .setValue(new ChatMessage(
+                                            input.getText().toString(),
+                                            FirebaseAuth.getInstance()
+                                                    .getCurrentUser()
+                                                    .getEmail(),
+                                            "null")
                                     );
                             Log.d("abcdabcd", String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()));
                             // Clear the input
@@ -90,24 +91,17 @@ public class ChatActivity extends AppCompatActivity {
                                     .child("chat")
                                     .push()
                                     .setValue(new ChatMessage(input.getText().toString(),
-                                                    FirebaseAuth.getInstance()
-                                                            .getCurrentUser()
-                                                            .getEmail(),
-                                                    FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
-                                            //TODO: here there is a chnce of error....chk im not able to do that
-                                            //FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString() this is giving error
-                                            //problem is of android version
+                                            FirebaseAuth.getInstance()
+                                                    .getCurrentUser()
+                                                    .getEmail(),
+                                            FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
                                     );
-//                            Log.d("abcdabcd", String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()));
-                            // Clear the input
                         }
-
                     }
                     input.setText("");
                 }
             }
         });
-
     }
 
     @Override
@@ -123,17 +117,26 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
 
-                TextView messageText = (TextView) v.findViewById(R.id.message_text);
-                TextView messageUser = (TextView) v.findViewById(R.id.message_user);
-                TextView messageTime = (TextView) v.findViewById(R.id.message_time);
-                CircleImageView proileUrl = (CircleImageView) v.findViewById(R.id.profile_image);
+                TextView messageText = v.findViewById(R.id.message_text);
+                TextView messageUser = v.findViewById(R.id.message_user);
+                TextView messageTime = v.findViewById(R.id.message_time);
+                CircleImageView proileUrl = v.findViewById(R.id.profile_image);
                 // Set their text
                 messageText.setText(model.getMessageText());
                 messageUser.setText(model.getMessageUser());
                 //sets image to chat
-                Picasso.with(getApplicationContext())
-                        .load(model.getProfileUrl())
-                        .into(proileUrl);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                    if (!Objects.equals(model.getProfileUrl(), "null")) {
+                        Picasso.with(getApplicationContext())
+                                .load(model.getProfileUrl())
+                                .into(proileUrl);
+                    } else {
+                        proileUrl.setImageResource(R.drawable.ic_user_white);
+                    }
+                } else {
+                    proileUrl.setImageResource(R.drawable.ic_user_white);
+
+                }
 
                 // Format the date before showing it
                 messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
@@ -160,8 +163,7 @@ public class ChatActivity extends AppCompatActivity {
                     // access last message
                     DataSnapshot messageSnapShot = dataSnapshot.getChildren().iterator().next();
                     messgaeLastText = (String) messageSnapShot.child("messageText").getValue();
-                    Log.v("Value", messgaeLastText);
-
+//                    Log.v("Value", messgaeLastText);
                 }
             }
 
