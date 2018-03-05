@@ -1,6 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="5dp">
 
@@ -8,16 +8,15 @@
         android:id="@+id/profile_image"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="4dp"
+        app:civ_border_color="@color/white"
         android:src="@drawable/com_facebook_auth_dialog_background"
-        app:civ_border_color="@android:color/holo_green_dark"
-        app:civ_border_width="2dp" />
+        app:civ_border_width="0.5dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/input_outline2"
-        android:backgroundTint="@color/white"
+        android:background="@drawable/input_outline3"
         android:padding="10dp">
 
         <TextView
@@ -27,6 +26,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@id/message_time"
+            android:text="@string/app_name"
+            android:textSize="12sp"
             android:textStyle="normal|bold" />
 
         <TextView
@@ -35,7 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/message_user"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:text="@string/app_name"
+            android:textSize="10sp" />
 
         <TextView
             android:id="@+id/message_text"
@@ -45,7 +49,8 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/message_user"
             android:layout_marginTop="5dp"
+            android:text="@string/app_name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textSize="18sp" />
+            android:textSize="16sp" />
     </RelativeLayout>
 </LinearLayout>

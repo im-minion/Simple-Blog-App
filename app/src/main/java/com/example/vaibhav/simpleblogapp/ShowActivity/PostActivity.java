@@ -40,7 +40,6 @@ public class PostActivity extends AppCompatActivity {
     private StorageReference mStorageRef;
     private DatabaseReference mDatabase;
     private ProgressDialog mprogressbar;
-    private FirebaseAuth mAuth;
     private FirebaseUser mCurrentUser;
     private DatabaseReference mDatabaseUSer;
 
@@ -52,7 +51,7 @@ public class PostActivity extends AppCompatActivity {
 
         bindViews();
 
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         mCurrentUser = mAuth.getCurrentUser();
         mDatabaseUSer = FirebaseDatabase.getInstance().getReference().child("Users").child(mCurrentUser.getUid());
 

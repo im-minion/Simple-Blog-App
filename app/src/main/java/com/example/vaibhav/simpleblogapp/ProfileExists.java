@@ -11,15 +11,13 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 public class ProfileExists extends AppCompatActivity {
-    private TextView tv;
-    private ImageView iv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_exists);
-        tv = (TextView) findViewById(R.id.textView);
-        iv = (ImageView) findViewById(R.id.imageView);
+        TextView tv = (TextView) findViewById(R.id.textView);
+        ImageView iv = (ImageView) findViewById(R.id.imageView);
         String uname = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
         tv.setText("Logged in as " + uname);
         if (FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl() == null) {

@@ -33,7 +33,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ChatActivity extends AppCompatActivity {
 
     private static final int SIGN_IN_REQUEST_CODE = 1;
-    private FirebaseListAdapter<ChatMessage> adapter;
     ListView listOfMessages;
     private static final int RC_SIGN_IN = 200;
     private static final String PATH_TOS = "";
@@ -59,7 +58,7 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (FirebaseAuth.getInstance().getCurrentUser() == null) {
-                    Toast.makeText(getApplicationContext(), "Not logged in!", Toast.LENGTH_SHORT);
+                    Toast.makeText(getApplicationContext(), "Not logged in!", Toast.LENGTH_SHORT).show();
                     onStart();
                 } else {
                     input = (EditText) findViewById(R.id.input);
@@ -93,13 +92,13 @@ public class ChatActivity extends AppCompatActivity {
                                     .setValue(new ChatMessage(input.getText().toString(),
                                                     FirebaseAuth.getInstance()
                                                             .getCurrentUser()
-                                                            .getDisplayName(),
+                                                            .getEmail(),
                                                     FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString())
                                             //TODO: here there is a chnce of error....chk im not able to do that
                                             //FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString() this is giving error
                                             //problem is of android version
                                     );
-                            Log.d("abcdabcd", String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()));
+//                            Log.d("abcdabcd", String.valueOf(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()));
                             // Clear the input
                         }
 
@@ -119,11 +118,11 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void displayChatMessages() {
-        adapter = new FirebaseListAdapter<ChatMessage>(ChatActivity.this, ChatMessage.class,
-                R.layout.message, FirebaseDatabase.getInstance().getReference("/chat")) {
+        FirebaseListAdapter<ChatMessage> adapter = new FirebaseListAdapter<ChatMessage>(ChatActivity.this, ChatMessage.class,
+                R.layout.message_row, FirebaseDatabase.getInstance().getReference("/chat")) {
             @Override
             protected void populateView(View v, ChatMessage model, int position) {
-                // Get references to the views of message.xml
+
                 TextView messageText = (TextView) v.findViewById(R.id.message_text);
                 TextView messageUser = (TextView) v.findViewById(R.id.message_user);
                 TextView messageTime = (TextView) v.findViewById(R.id.message_time);

@@ -17,14 +17,14 @@
     <string name="sign_up">Sign Up</string>
     <string name="post_desc_goes_here">POST DESC GOES HERE</string>
     <string name="post_title_goes_here">POST TITLE GOES HERE</string>
-    <string name="enter_yor_text">Enter Yor Text ....</string>
+    <string name="enter_yor_text">Enter Text</string>
     <string name="logOut">Log Out</string>
     <string name="log_in_as">Logged in as\n</string>
     <string name="edit">Edit</string>
     <string name="enter_your_dispaly_name">Enter your Dispaly Name</string>
     <string name="finish_setup">Finish Setup</string>
     <string name="post_title">Post Title..</string>
-    <string name="post_description">Post Description...</string>
+    <string name="post_description">Post Description</string>
     <string name="submit">Submit</string>
     <string name="or_dash">----------------------OR----------------------</string>
 </resources>

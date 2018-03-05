@@ -1,51 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="5dp"
-        android:src="@drawable/send"
-        android:tint="@android:color/white"
-        app:backgroundTint="@color/colorPrimary"
-        app:fabSize="mini" />
-
-
-    <EditText
-        android:id="@+id/input"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="12dp"
-        android:layout_toLeftOf="@id/fab"
-        android:background="@drawable/input_outline2"
-        android:backgroundTint="@android:color/white"
-        android:hint="@string/enter_yor_text"
-        android:padding="12dp"
-        android:textColor="@android:color/black"
-        android:textColorHint="@android:color/black" />
-
     <ListView
         android:id="@+id/list_of_messages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/fab"
+        android:layout_above="@id/linear_lay"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="8dp"
         android:divider="@android:color/transparent"
-        android:dividerHeight="16dp"
         android:scrollbars="none" />
+
+    <LinearLayout
+        android:background="@android:color/transparent"
+        android:id="@+id/linear_lay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/input_outline3"
+            android:hint="@string/enter_yor_text"
+            android:padding="8dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_marginLeft="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/send"
+            android:tint="@android:color/white"
+            app:backgroundTint="@color/colorPrimary"
+            app:fabSize="mini" />
+    </LinearLayout>
 </RelativeLayout>

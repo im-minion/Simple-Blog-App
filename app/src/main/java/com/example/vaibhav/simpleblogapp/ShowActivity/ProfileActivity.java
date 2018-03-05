@@ -30,7 +30,6 @@ public class ProfileActivity extends AppCompatActivity {
     String uimage;
     String uname;
     Button buttonProfile;
-    private DatabaseReference mDatabseUsers;
     private TextView edit;
 
     @Override
@@ -38,7 +37,7 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         bindViews();
-        mDatabseUsers = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        DatabaseReference mDatabseUsers = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         mDatabseUsers.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
