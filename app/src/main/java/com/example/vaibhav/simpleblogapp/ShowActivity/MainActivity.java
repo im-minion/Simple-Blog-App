@@ -230,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
                         mLikebtn.setImageResource(R.drawable.ic_no_heart_gray);
                     }
                 }
+
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
 

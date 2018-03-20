@@ -39,11 +39,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ChatActivity extends AppCompatActivity {
 
-    private static final int SIGN_IN_REQUEST_CODE = 1;
-    //    ListView listOfMessages;
-    private static final int RC_SIGN_IN = 200;
-    private static final String PATH_TOS = "";
-    String messgaeLastText;
     EditText input;
     RecyclerView chatRecView;
     DatabaseReference dbChatRef;
@@ -53,9 +48,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        boolean previouslyStarted = prefs.getBoolean("prev", false);
         FloatingActionButton fab = findViewById(R.id.fab);
-//        listOfMessages = findViewById(R.id.list_of_messages);
 
         chatRecView = findViewById(R.id.list_of_messages);
         dbChatRef = FirebaseDatabase.getInstance().getReference("/chat");
@@ -66,10 +59,6 @@ public class ChatActivity extends AppCompatActivity {
 
         if (FirebaseAuth.getInstance().getCurrentUser() == null) {
             startActivity(new Intent(ChatActivity.this, LoginActivity.class));
-        } else {
-//            displayChatMessages();
-//            lastMessage();
-
         }
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +114,6 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-//        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
         final FirebaseRecyclerAdapter<ChatMessage, ChatViewHolder> firebaseRecyclerAdapter =
                 new FirebaseRecyclerAdapter<ChatMessage, ChatViewHolder>(
                         ChatMessage.class,
@@ -139,11 +127,10 @@ public class ChatActivity extends AppCompatActivity {
                         viewHolder.setMessageText(model.getMessageText());
                         viewHolder.setMessageTime(model.getMessageTime());
                         viewHolder.setUserName(model.getMessageUser());
-//                            viewHolder.setUserProfileImage(model.getProfileUrl());
+                        viewHolder.setUserProfileImage(model.getProfileUrl(), getApplicationContext());
                     }
                 };
         chatRecView.setAdapter(firebaseRecyclerAdapter);
-//        }
     }
 
     public static class ChatViewHolder extends RecyclerView.ViewHolder {
@@ -154,10 +141,10 @@ public class ChatActivity extends AppCompatActivity {
 
         public ChatViewHolder(View itemView) {
             super(itemView);
-            userName = (TextView) itemView.findViewById(R.id.message_user);
-            messageTime = (TextView) itemView.findViewById(R.id.message_time);
-            messageText = (TextView) itemView.findViewById(R.id.message_text);
-            userProfileImage = (CircleImageView) itemView.findViewById(R.id.profile_image);
+            userName = itemView.findViewById(R.id.message_user);
+            messageTime = itemView.findViewById(R.id.message_time);
+            messageText = itemView.findViewById(R.id.message_text);
+            userProfileImage = itemView.findViewById(R.id.profile_image);
         }
 
         public void setUserName(String usr) {
@@ -173,83 +160,16 @@ public class ChatActivity extends AppCompatActivity {
             messageText.setText(message);
         }
 
-//        public void setUserProfileImage(String profile_url) {
-//            Picasso.with(mctx)
-//                    .load(profile_url)
-//                    .into(userProfileImage);
-//
-//        }
-
+        public void setUserProfileImage(String profile_url, Context mctx) {
+            Picasso.with(mctx)
+                    .load(profile_url)
+                    .into(userProfileImage);
+        }
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         return super.onSupportNavigateUp();
     }
-
-    private void displayChatMessages() {
-        FirebaseListAdapter<ChatMessage> adapter = new FirebaseListAdapter<ChatMessage>(ChatActivity.this, ChatMessage.class,
-                R.layout.message_row, FirebaseDatabase.getInstance().getReference("/chat")) {
-            @Override
-            protected void populateView(View v, ChatMessage model, int position) {
-
-                TextView messageText = v.findViewById(R.id.message_text);
-                TextView messageUser = v.findViewById(R.id.message_user);
-                TextView messageTime = v.findViewById(R.id.message_time);
-                CircleImageView proileUrl = v.findViewById(R.id.profile_image);
-                // Set their text
-                messageText.setText(model.getMessageText());
-                messageUser.setText(model.getMessageUser());
-                //sets image to chat
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                    if (!Objects.equals(model.getProfileUrl(), "null")) {
-                        Picasso.with(getApplicationContext())
-                                .load(model.getProfileUrl())
-                                .into(proileUrl);
-                    } else {
-                        proileUrl.setImageResource(R.drawable.ic_user_white);
-                    }
-                } else {
-                    proileUrl.setImageResource(R.drawable.ic_user_white);
-
-                }
-
-                // Format the date before showing it
-                messageTime.setText(DateFormat.format("dd-MM-yyyy (HH:mm:ss)",
-                        model.getMessageTime()));
-            }
-        };
-
-        //listOfMessages.setAdapter(adapter);
-    }
-
-    private void lastMessage() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        // change this to your databae ref
-        final DatabaseReference messages = database
-                .getReference()
-                .child("chat"); // change this to your databae ref
-
-        messages.limitToLast(1).addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                if (dataSnapshot.exists()) {
-                    // access last message
-                    DataSnapshot messageSnapShot = dataSnapshot.getChildren().iterator().next();
-                    messgaeLastText = (String) messageSnapShot.child("messageText").getValue();
-//                    Log.v("Value", messgaeLastText);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-    }
-
 
 }
