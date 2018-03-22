@@ -161,9 +161,14 @@ public class ChatActivity extends AppCompatActivity {
         }
 
         public void setUserProfileImage(String profile_url, Context mctx) {
-            Picasso.with(mctx)
-                    .load(profile_url)
-                    .into(userProfileImage);
+            if (profile_url == "null"){
+                userProfileImage.setImageResource(R.drawable.ic_user_white);
+            }else{
+                Picasso.with(mctx)
+                        .load(profile_url)
+                        .into(userProfileImage);
+            }
+
         }
     }
 
